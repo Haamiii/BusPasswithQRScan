@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/Teal"
+    android:id="@+id/frvtstopContainer"
+    tools:context=".Student.Favourite_Stops">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/Seakale">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <FrameLayout
+                    android:id="@+id/backframe"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/Seakale">
+
+                    <ImageButton
+                        android:id="@+id/backButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@color/Seakale"
+                        android:contentDescription="TODO"
+                        android:src="@drawable/back_arrow"
+                        tools:ignore="TouchTargetSizeCheck" />
+
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Favourite Stops"
+                    android:textSize="23dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="70dp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold">
+                </TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="54dp"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/remove"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    tools:ignore="TextSizeCheck" />
+            </LinearLayout>
+
+
+        </androidx.appcompat.widget.Toolbar>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rcv_fouritestops"
+        android:layout_margin="10dp"/>
+
+</LinearLayout>

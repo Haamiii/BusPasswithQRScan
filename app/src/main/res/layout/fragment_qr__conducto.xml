@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/Teal"
+    android:orientation="vertical"
+    tools:context=".Conductor.Qr_ConductoFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/Seakale">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="QR Code"
+            android:textSize="23dp"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/white"
+            android:textStyle="bold">
+        </TextView>
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+
+    <ImageView
+        android:id="@+id/imageButton"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/bus_logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/scanqr"
+            android:textColor="@color/Teal"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:background="@color/white"
+            android:layout_marginTop="10dp"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Scan Code"
+            tools:ignore="MissingConstraints" />
+    </RelativeLayout>
+</FrameLayout>

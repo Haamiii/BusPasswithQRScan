@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Teal"
+    tools:context=".Student.QrCodeFragment"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/Seakale">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="QR Code"
+                android:textSize="23dp"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/white"
+                android:textStyle="bold">
+            </TextView>
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+
+        <ImageView
+        android:id="@+id/imageButton"
+        android:layout_width="94dp"
+        android:layout_height="85dp"
+        android:src="@drawable/rofile_pic"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp"/>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:text="Hamid Basar Wahab"
+        android:layout_marginTop="190dp"/>
+
+    <TextView
+        android:id="@+id/pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3634"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="23dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="220dp"/>
+
+        <ImageView
+            android:id="@+id/ivqrcode"
+            android:layout_width="match_parent"
+            android:layout_height="356dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="320dp"
+
+            />
+    </RelativeLayout>
+
+
+</LinearLayout>

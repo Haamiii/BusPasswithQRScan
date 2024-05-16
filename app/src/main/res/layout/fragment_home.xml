@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:accessibilityLiveRegion="polite"
+    android:background="@color/Teal"
+    tools:context=".Student.Student_dashboard">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/Seakale">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Home"
+                    android:textSize="23dp"
+                    android:layout_marginTop="15dp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold">
+                </TextView>
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ProgressBar
+                android:layout_width="195dp"
+                android:layout_height="181dp"
+                android:layout_centerHorizontal="true"
+                android:indeterminateOnly="false"
+                android:progress="75"
+                android:progressDrawable="@drawable/prograsscircle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:text="@string/_75_100"
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:ignore="TextSizeCheck" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="95dp"
+                android:text="@string/journeys"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                tools:ignore="TextSizeCheck" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:visibility="visible">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                app:cardBackgroundColor="@color/Seakale"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:backgroundTint="@color/white"
+                        android:text="@string/favourite_stops"
+                        android:textAlignment="center"
+                        android:textColor="@color/Teal"
+                        android:textSize="25sp"
+                        android:textStyle="bold"
+                        tools:ignore="TextSizeCheck"
+                        tools:targetApi="lollipop" />
+
+                    <FrameLayout
+                        android:id="@+id/layout_step_wrapper"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_stroke"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:layout_marginTop="4dp"
+                        >
+
+                        <androidx.viewpager2.widget.ViewPager2
+                            android:id="@+id/view_pager"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            />
+
+                        <com.google.android.material.tabs.TabLayout
+                            android:id="@+id/tab_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:background="@color/Seakale"
+                            app:tabBackground="@drawable/tab_pager_selector"
+                            app:tabGravity="center"
+                            app:tabIndicatorHeight="0dp"
+                            app:tabPaddingEnd="10dp"
+                            app:tabPaddingStart="10dp"
+                            tools:ignore="SpeakableTextPresentCheck" />
+                    </FrameLayout>
+
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/editFrvtStop"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:backgroundTint="@color/white"
+                        android:text="Edit Favorite Stops"
+                        android:textColor="@color/Teal"
+                        android:textSize="25sp"
+                        android:textStyle="bold"
+                        app:cardElevation="10dp"
+                        tools:ignore="HardcodedText,TextSizeCheck"
+                        tools:targetApi="lollipop"
+                        android:layout_marginBottom="16dp" />
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+    </LinearLayout>
+
+</FrameLayout>

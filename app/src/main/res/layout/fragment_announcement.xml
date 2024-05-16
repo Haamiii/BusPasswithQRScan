@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Teal"
+    android:orientation="vertical"
+    tools:context=".Conductor.AnnouncementFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/Seakale">
+
+            <ImageButton
+                android:id="@+id/ivbackBtnAnn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/Seakale"
+                android:src="@drawable/back_arrow"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/annoucements"
+                android:layout_marginTop="14dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Announcement"
+                android:textSize="23dp"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/white"
+                android:textStyle="bold">
+            </TextView>
+
+        </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+
+
+        <ImageView
+            android:id="@+id/imageButton"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:src="@drawable/bus_logo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="300dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/bgstrokeeeee"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="top|start"
+                android:hint="Type Here"
+                android:includeFontPadding="false"
+                android:inputType="textCapSentences|textMultiLine"
+                android:overScrollMode="always"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:backgroundTint="@color/white"
+                android:text="SEND"
+                android:layout_marginTop="100dp"
+                android:textColor="@color/Teal"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:id="@+id/historybtn"/>
+        </LinearLayout>
+    </RelativeLayout>
+</FrameLayout>

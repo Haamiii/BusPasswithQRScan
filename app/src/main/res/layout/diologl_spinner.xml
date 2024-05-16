@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        app:cardCornerRadius="25dp"
+        app:cardBackgroundColor="@color/Seakale"
+        android:layout_centerHorizontal="true">
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/white"
+            android:layout_marginBottom="10dp" />
+    </androidx.cardview.widget.CardView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/start_button"
+                android:textColor="@color/Teal"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:background="@color/white"
+                android:layout_marginTop="20dp"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="Start" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/close_button"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:background="@color/white"
+                android:layout_marginTop="10dp"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="Close"/>
+        </LinearLayout>
+    </LinearLayout>

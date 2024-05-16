@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Student.History"
+    android:orientation="vertical"
+    android:background="@color/Teal">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/Seakale">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/icbackBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@color/Seakale"
+                    android:contentDescription="TODO"
+                    android:src="@drawable/back_arrow"
+                    tools:ignore="TouchTargetSizeCheck" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="History"
+                android:textSize="23dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="114dp"
+                android:textColor="@color/white"
+                android:textStyle="bold">
+            </TextView>
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+
+          <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="From: "
+           android:textColor="@color/white"
+           android:textSize="16dp"
+           android:layout_marginTop="5dp"
+           android:layout_marginLeft="10dp"/>
+
+          <EditText
+              android:id="@+id/fromdatepicker"
+              android:layout_width="100dp"
+              android:paddingLeft="8dp"
+              android:layout_marginTop="5dp"
+              android:layout_height="wrap_content"
+              android:backgroundTint="@color/white"
+              android:background="@drawable/bg_stroke"
+              android:hint="DD/MM/YY"
+              android:textColorHint="@color/white"
+              android:textColor="@color/white"
+              android:textSize="16dp"
+
+              tools:ignore="TouchTargetSizeCheck" />
+
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="To: "
+              android:textColor="@color/white"
+              android:textSize="16dp"
+              android:layout_marginTop="5dp"
+              android:layout_marginLeft="100dp"/>
+
+          <EditText
+              android:id="@+id/todatepicker"
+              android:paddingLeft="8dp"
+              android:layout_marginTop="5dp"
+              android:layout_width="100dp"
+              android:layout_height="wrap_content"
+              android:backgroundTint="@color/white"
+              android:background="@drawable/bg_stroke"
+              android:hint="DD/MM/YY"
+              android:textColorHint="@color/white"
+              android:textColor="@color/white"
+              android:textSize="16dp"
+              tools:ignore="TouchTargetSizeCheck" />
+
+      </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/rcv_history"
+            android:layout_margin="10dp"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
+</FrameLayout>
