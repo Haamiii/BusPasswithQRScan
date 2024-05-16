@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cvhistory_pwrapper"
+    android:id="@+id/cvhistory_pwrapperconductor"
     android:layout_width="match_parent"
     android:layout_height="150dp"
     android:layout_marginStart="16dp"
@@ -20,7 +20,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvtitle"
+                android:id="@+id/tvtitlec"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Bus Arrival"
@@ -44,7 +44,7 @@
                     android:layout_marginLeft="10dp"/>
 
                 <TextView
-                    android:id="@+id/tvstopName"
+                    android:id="@+id/tvstopNamec"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="6th Road"
@@ -69,7 +69,7 @@
                     android:layout_marginLeft="10dp"/>
 
                 <TextView
-                    android:id="@+id/tvtime"
+                    android:id="@+id/tvtimec"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="3634"
@@ -93,7 +93,7 @@
                     android:layout_marginLeft="10dp"/>
 
                 <TextView
-                    android:id="@+id/tvdate"
+                    android:id="@+id/tvdatec"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Chandni Chowk"
@@ -118,7 +118,7 @@
                     tools:ignore="TextSizeCheck" />
 
                 <TextView
-                    android:id="@+id/tvroute"
+                    android:id="@+id/tvroutec"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -143,7 +143,7 @@
                     tools:ignore="TextSizeCheck" />
 
                 <TextView
-                    android:id="@+id/tvstudentscan"
+                    android:id="@+id/tvstudentscanc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="10"

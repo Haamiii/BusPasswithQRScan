@@ -46,7 +46,7 @@ public class History_Conductor extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_history__conductor, container, false);
 
-        recyclerView = view.findViewById(R.id.rcv_history);
+        recyclerView = view.findViewById(R.id.rcv_historyc);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new HistoryAdapter_Conductor(setDummyData(),getContext()));
 
@@ -75,11 +75,11 @@ public class History_Conductor extends Fragment {
                 showDatePickerDialog(toDatePicker);
             }
         });
-        spinner=view.findViewById(R.id.spSelectcategory);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
+        spinner=view.findViewById(R.id.spcategory);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(requireContext(),
                 android.R.layout.simple_spinner_item,category);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(arrayAdapter);
 
         return view;
     }
@@ -102,7 +102,7 @@ public class History_Conductor extends Fragment {
     private List<HistoryModel> setDummyData() {
         List<HistoryModel> historyModelList=new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            HistoryModel historyModel = new HistoryModel("Bus Arrival","6th Road","8:00AM","4/march/2024",01,30);
+            HistoryModel historyModel = new HistoryModel("Bus Arrival","6th Road","8:00AM","4/march/2024", "1","30");
             historyModelList.add(historyModel);
         }
         return historyModelList;

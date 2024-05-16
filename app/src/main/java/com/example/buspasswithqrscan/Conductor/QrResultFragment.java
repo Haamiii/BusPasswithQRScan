@@ -1,25 +1,22 @@
 package com.example.buspasswithqrscan.Conductor;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.example.buspasswithqrscan.R;
 
 public class QrResultFragment extends Fragment {
 
     private static final String ARG_QR_RESULT = "qr_result";
-
-    private String qrResult;
-
-    public QrResultFragment() {
-        // Required empty public constructor
-    }
 
     public static QrResultFragment newInstance(String qrResult) {
         QrResultFragment fragment = new QrResultFragment();
@@ -30,19 +27,26 @@ public class QrResultFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            qrResult = getArguments().getString(ARG_QR_RESULT);
-        }
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_qr_result, container, false);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_qr_result, container, false);
-        TextView resultTextView = view.findViewById(R.id.qrResultTextView);
-        resultTextView.setText(qrResult);
-        return view;
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Parse the JSON string and set the text of TextViews
+        String qrResult = getArguments().getString(ARG_QR_RESULT);
+        // Assuming qrResult is in JSON format, you may need to parse it accordingly
+        try {
+            // Here, I'm assuming qrResult is a Base64 encoded image
+            byte[] decodedString = android.util.Base64.decode(qrResult, android.util.Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            ImageView imageView = view.findViewById(R.id.imageView);
+            imageView.setImageBitmap(decodedByte);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

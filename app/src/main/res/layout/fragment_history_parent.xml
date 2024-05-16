@@ -109,7 +109,7 @@
             android:textColorHint="@color/white"
             android:textColor="@color/white"
             android:textSize="20dp"
-            tools:ignore="TouchTargetSizeCheck" />
+            android:minHeight="48dp"/>
 
 
 

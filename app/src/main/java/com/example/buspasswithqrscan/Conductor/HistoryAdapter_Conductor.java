@@ -55,13 +55,13 @@ public class HistoryAdapter_Conductor extends RecyclerView.Adapter<HistoryAdapte
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            cardView=itemView.findViewById(R.id.cvhistory_pwrapper);
-            tvtitle=itemView.findViewById(R.id.tvtitle);
-            tvStopName=itemView.findViewById(R.id.tvstopname);
-            tvtime=itemView.findViewById(R.id.tvtime);
-            tvdate=itemView.findViewById(R.id.tvdate);
-            tvroute=itemView.findViewById(R.id.tvroute);
-            tvstudentscan=itemView.findViewById(R.id.tvstudentscan);
+            cardView=itemView.findViewById(R.id.cvhistory_pwrapperconductor);
+            tvtitle=itemView.findViewById(R.id.tvtitlec);
+            tvStopName=itemView.findViewById(R.id.tvstopNamec);
+            tvtime=itemView.findViewById(R.id.tvtimec);
+            tvdate=itemView.findViewById(R.id.tvdatec);
+            tvroute=itemView.findViewById(R.id.tvroutec);
+            tvstudentscan=itemView.findViewById(R.id.tvstudentscanc);
 
         }
     }

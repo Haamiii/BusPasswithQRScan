@@ -89,27 +89,30 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/white"
                 android:background="@drawable/bg_stroke"
-                android:hint="DD/MM/YY"
                 android:textColorHint="@color/white"
                 android:textColor="@color/white"
+                android:hint="DD/MM/YY"
                 android:textSize="16dp"
                 tools:ignore="TouchTargetSizeCheck" />
 
         </LinearLayout>
 
         <Spinner
-            android:id="@+id/spSelectcategory"
+            android:id="@+id/spcategory"
             android:paddingLeft="8dp"
             android:layout_marginTop="5dp"
-            android:layout_width="100dp"
+            android:layout_width="200dp"
             android:layout_gravity="center_horizontal"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
+            android:textAlignment="center"
+            android:outlineAmbientShadowColor="@color/white"
+            android:popupBackground="@color/white"
             android:background="@drawable/bg_stroke"
             android:textColorHint="@color/white"
             android:textColor="@color/white"
-            android:textSize="20dp"
-            tools:ignore="TouchTargetSizeCheck" />
+            android:textSize="30dp"
+            android:minHeight="48dp" />
 
 
 
@@ -121,7 +124,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/rcv_history"
+                android:id="@+id/rcv_historyc"
                 android:layout_margin="10dp"/>
 
         </LinearLayout>

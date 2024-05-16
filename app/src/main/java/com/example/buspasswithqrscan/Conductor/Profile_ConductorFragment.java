@@ -22,7 +22,7 @@ public class Profile_ConductorFragment extends Fragment {
         rootView.findViewById(R.id.historybtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment history = new History_parent();
+                Fragment history = new History_Conductor();
                 getParentFragmentManager().beginTransaction()
                         .replace(R.id.frame_layoutconductor, history)
                         .addToBackStack(null) // This line allows the user to navigate back to the previous fragment
@@ -32,7 +32,7 @@ public class Profile_ConductorFragment extends Fragment {
         rootView.findViewById(R.id.changepssbtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment changepassFragment= new ChangePassword_parent();
+                Fragment changepassFragment= new ChangePassword_ConductorFragment();
                 getParentFragmentManager().beginTransaction().replace(R.id.frame_layoutconductor,changepassFragment).commit();
             }
         });

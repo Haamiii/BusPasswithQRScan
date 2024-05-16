@@ -35,23 +35,25 @@ public class HistoryModel implements Serializable {
         this.date = date;
     }
 
-    public int getRoute() {
+    public String getRoute() {
         return route;
     }
 
-    public void setRoute(int route) {
+    public void setRoute(String route) {
         this.route = route;
     }
 
-    public int getStudentscan() {
+    public String getStudentscan()
+    {
         return studentscan;
     }
 
-    public void setStudentscan(int studentscan) {
+    public void setStudentscan(String studentscan)
+    {
         this.studentscan = studentscan;
     }
 
-    public HistoryModel(String title, String stopname, String time, String date, int route, int studentscan) {
+    public HistoryModel(String title, String stopname, String time, String date, String route, String studentscan) {
         this.title = title;
         this.stopname = stopname;
         this.time = time;
@@ -64,8 +66,8 @@ public class HistoryModel implements Serializable {
     String stopname;
     String time;
     String date;
-    int route;
-    int studentscan;
+    String route;
+    String studentscan;
 
 
 
