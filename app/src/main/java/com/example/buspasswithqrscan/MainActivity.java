@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.buspasswithqrscan.Admin.Admin_dashboard;
 import com.example.buspasswithqrscan.Conductor.Conductor_Dashboard;
 import com.example.buspasswithqrscan.Student.Student_dashboard;
 import com.example.buspasswithqrscan.Parent.Parent_dashboard;
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(Parent_dashboard.class);
                 }else if (userType.equals("conductor")) {
                     startActivity(Conductor_Dashboard.class);
+                }else if (userType.equals("admin")) {
+                    startActivity(Admin_dashboard.class);
                 }
                 else
                 {

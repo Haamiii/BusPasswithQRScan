@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeAdmin"
+        android:icon="@drawable/baseline_home_24"
+        android:title="Home" />
+    <item
+        android:id="@+id/mapAdmin"
+        android:icon="@drawable/map"
+        android:title="Map" />
+    <item
+        android:id="@+id/AddAdmin"
+        android:icon="@drawable/plus"
+        android:title="Add" />
+    <item
+        android:id="@+id/notificationAdmin"
+        android:icon="@drawable/ic_stat_name"
+        android:title="Notification" />
+    <item
+        android:id="@+id/profileAdmin"
+        android:icon="@drawable/user"
+        android:title="Profile" />
+
+</menu>
