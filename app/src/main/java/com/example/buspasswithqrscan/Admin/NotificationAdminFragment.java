@@ -3,64 +3,42 @@ package com.example.buspasswithqrscan.Admin;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.buspasswithqrscan.Admin.Model.NotificationAdminModel;
+import com.example.buspasswithqrscan.Conductor.NotificationAdapter_Conductor;
+import com.example.buspasswithqrscan.Conductor.model.NotificationConductorModel;
 import com.example.buspasswithqrscan.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link NotificationAdminFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class NotificationAdminFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public NotificationAdminFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment NotificationAdminFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static NotificationAdminFragment newInstance(String param1, String param2) {
-        NotificationAdminFragment fragment = new NotificationAdminFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
+    RecyclerView recyclerView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notification_admin, container, false);
+        View view=inflater.inflate(R.layout.fragment_notification_admin, container, false);
+
+        recyclerView = view.findViewById(R.id.rcv_notificationAdmin);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(new NotificationAdapter_Admin(setDummyData(), getContext()));
+
+        return view;
     }
+
+    private List<NotificationAdminModel> setDummyData() {
+        List<NotificationAdminModel>notificationAdminModelList=new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            NotificationAdminModel model= new NotificationAdminModel("Journey Added for Hamid Basar.","Today","7:00AM");
+            notificationAdminModelList.add(model);
+        }
+        return notificationAdminModelList;
+    }
+
 }

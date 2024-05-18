@@ -1,10 +1,9 @@
-package com.example.buspasswithqrscan.Conductor;
+package com.example.buspasswithqrscan.Admin;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,16 +17,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
-import com.example.buspasswithqrscan.Conductor.model.HistoryModel;
+import com.example.buspasswithqrscan.Admin.Model.HistoryModelAdmin;
 import com.example.buspasswithqrscan.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class History_Conductor extends Fragment {
-
-    CardView cardView;
+public class History_Admin extends Fragment {
     RecyclerView recyclerView;
     EditText fromDatePicker;
     EditText toDatePicker;
@@ -36,26 +33,25 @@ public class History_Conductor extends Fragment {
     int day;
     Spinner spinner;
     String[] category={"Bus Arrival","Bus Departure"};
-
     @SuppressLint("MissingInflatedId")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_history__conductor, container, false);
-
-        recyclerView = view.findViewById(R.id.rcv_historyc);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view=inflater.inflate(R.layout.fragment_history__admin, container, false);
+        recyclerView = view.findViewById(R.id.rcv_historyadmin);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new HistoryAdapter_Conductor(setDummyData(),getContext()));
+        recyclerView.setAdapter(new HistoryAdapter_Admin(setDummyData(),getContext()));
 
         ImageButton backbutton;
-        backbutton = view.findViewById(R.id.icbackButnconductor);
+        backbutton = view.findViewById(R.id.icbackButnAdmin);
         backbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = new Profile_ConductorFragment();
+                Fragment fragment = new ProfileAdminFragment();
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_layoutconductor, fragment).commit();
+                transaction.replace(R.id.frame_layoutAdmin, fragment).commit();
             }
-            });
+        });
         fromDatePicker=view.findViewById(R.id.fromdatepicker);
         toDatePicker = view.findViewById(R.id.todatepicker);
 
@@ -71,7 +67,7 @@ public class History_Conductor extends Fragment {
                 showDatePickerDialog(toDatePicker);
             }
         });
-        spinner=view.findViewById(R.id.spcategory);
+        spinner=view.findViewById(R.id.spcategoryAdmin);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(requireContext(),
                 android.R.layout.simple_spinner_item,category);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -95,13 +91,13 @@ public class History_Conductor extends Fragment {
 
     }
 
-    private List<HistoryModel> setDummyData() {
-        List<HistoryModel> historyModelList=new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            HistoryModel historyModel = new HistoryModel("Bus Arrival","6th Road","8:00AM","4/march/2024", "1","30");
-            historyModelList.add(historyModel);
+    private List<HistoryModelAdmin> setDummyData() {
+        List<HistoryModelAdmin> historyModelAdminList= new ArrayList<>();
+        for (int i = 0; i < 10; i++){
+            HistoryModelAdmin historyModelAdmin=new HistoryModelAdmin("Bus Arrival","6th Road","8:00AM","4/march/2024", "1","30");
+            historyModelAdminList.add(historyModelAdmin);
         }
-        return historyModelList;
-    }
 
+        return historyModelAdminList;
+    }
 }

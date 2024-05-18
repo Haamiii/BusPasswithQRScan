@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Conductor.History_Conductor"
+    tools:context=".Admin.History_Admin"
     android:orientation="vertical"
     android:background="@color/Teal">
 
@@ -22,7 +22,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/icbackButnconductor"
+                    android:id="@+id/icbackButnAdmin"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@color/Seakale"
@@ -98,7 +98,7 @@
         </LinearLayout>
 
         <Spinner
-            android:id="@+id/spcategory"
+            android:id="@+id/spcategoryAdmin"
             android:paddingLeft="8dp"
             android:layout_marginTop="5dp"
             android:layout_width="200dp"
@@ -124,7 +124,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/rcv_historyc"
+                android:id="@+id/rcv_historyadmin"
                 android:layout_margin="10dp"/>
 
         </LinearLayout>

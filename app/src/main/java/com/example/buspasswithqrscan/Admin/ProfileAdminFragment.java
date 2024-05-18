@@ -34,6 +34,17 @@ public class ProfileAdminFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        rootview.findViewById(R.id.historybtnadmin).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment historyAdmin=new History_Admin();
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.frame_layoutAdmin, historyAdmin)
+                        .addToBackStack(null) // This line allows the user to navigate back to the previous fragment
+                        .commit();
+
+            }
+        });
 
         return rootview;
     }
