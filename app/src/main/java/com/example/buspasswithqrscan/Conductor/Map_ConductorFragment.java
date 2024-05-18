@@ -33,8 +33,7 @@ public class Map_ConductorFragment extends Fragment implements OnMapReadyCallbac
 
     private GoogleMap mMap;
     private SupportMapFragment mapFragment;
-    private Spinner spinner;
-    private SpinnerAdapter adapter;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

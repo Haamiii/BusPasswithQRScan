@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <Button
+        android:id="@+id/btnAddStop"
+        android:layout_width="120dp"
+        android:layout_height="35dp"
+        android:text="Add New Stop"
+        android:gravity="center_vertical|center_horizontal"
+        android:textSize="10dp"
+        android:background="@drawable/bgstrokeeeee"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:id="@+id/btnAddRoute"
+        android:layout_marginTop="3dp"
+        android:layout_width="120dp"
+        android:layout_height="35dp"
+        android:text="Add New Route"
+        android:textSize="10dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:background="@drawable/bgstrokeeeee"
+        android:textColor="@color/white"/>
+</LinearLayout>

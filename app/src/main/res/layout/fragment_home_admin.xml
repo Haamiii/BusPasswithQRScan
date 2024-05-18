@@ -27,6 +27,33 @@
                 android:textColor="@color/white"
                 android:textStyle="bold">
             </TextView>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginBottom="20dp">
+
+                <ImageButton
+                    android:id="@+id/announcementadmin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="15dp"
+                    android:background="@color/Seakale"
+                    android:src="@drawable/annoucements" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Annoucements"
+                    android:textSize="8dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="@color/white"
+                    android:textStyle="bold">
+                </TextView>
+            </RelativeLayout>
+
 
         </androidx.appcompat.widget.Toolbar>
 
