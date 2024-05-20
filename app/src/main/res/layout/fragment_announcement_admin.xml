@@ -52,7 +52,7 @@
 
 
         <ImageView
-            android:id="@+id/imageButton"
+            android:id="@+id/imageBusadmin"
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:src="@drawable/bus_logo"

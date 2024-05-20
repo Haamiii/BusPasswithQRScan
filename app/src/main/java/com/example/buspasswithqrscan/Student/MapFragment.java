@@ -2,6 +2,7 @@ package com.example.buspasswithqrscan.Student;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,8 +22,11 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.Dot;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PatternItem;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.json.JSONArray;
@@ -31,9 +35,11 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
@@ -74,7 +80,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mMap.addMarker(new MarkerOptions().position(endLocation).title("Saddar"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startLocation, 12f));
 
-        drawRoute(startLocation, endLocation);
+        List<PatternItem> pattern= Arrays.asList(new Dot());
+        PolylineOptions polyline=new PolylineOptions();
+        polyline.add(startLocation,endLocation);
+        polyline.color(Color.RED);
+        polyline.width(10);
+        polyline.pattern(pattern);
+        mMap.addPolyline(polyline);
+
+        LatLngBounds.Builder builder=new LatLngBounds.Builder();
+        builder.include(startLocation);
+        builder.include(endLocation);
+        LatLngBounds bounds=builder.build();
+        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds,100));
+
+        //drawRoute(startLocation, endLocation);
     }
 
     private void drawRoute(LatLng start, LatLng end) {
@@ -86,7 +106,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
         String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
         String sensor = "sensor=false";
-        String key = "key=AAIzaSyA8obqhPxd0kOvMzxlc1v3uQH_mAVuW8RQ"; // Replace with your actual API key
+        String key = "key=" ; // Replace with your actual API key
         String parameters = str_origin + "&" + str_dest + "&" + sensor + "&" + key;
         return "https://maps.googleapis.com/maps/api/directions/json?" + parameters;
     }

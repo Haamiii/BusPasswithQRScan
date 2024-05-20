@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/Teal"
+    tools:context=".Admin.Searchupdate_add_adminFragment">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/Seakale">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/icbackButnSUadmin"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/Seakale"
+                android:contentDescription="TODO"
+                android:src="@drawable/back_arrow"
+                tools:ignore="TouchTargetSizeCheck" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Search &amp; Update"
+                android:textSize="23dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="80dp"
+                android:textColor="@color/white"
+                android:textStyle="bold">
+            </TextView>
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+    <androidx.cardview.widget.CardView
+        android:layout_width="380dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="100dp"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="10dp"
+        android:id="@+id/cd"
+        app:cardBackgroundColor="@color/Seakale">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search"
+            android:textSize="23dp"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/etidSadmin"
+            android:layout_width="355dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="35dp"
+            android:backgroundTint="@color/white"
+            android:hint="Id"
+            android:minHeight="48dp"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
+        <Spinner
+            android:id="@+id/spcategorys_uaddAdmin"
+            android:paddingLeft="8dp"
+            android:layout_marginTop="90dp"
+            android:layout_width="355dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:textAlignment="center"
+            android:outlineAmbientShadowColor="@color/white"
+            android:popupBackground="@color/white"
+            android:background="@drawable/bg_stroke"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            android:minHeight="48dp" />
+
+    </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="380dp"
+            android:layout_height="230dp"
+            android:layout_below="@+id/cd"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="10dp"
+            app:cardBackgroundColor="@color/Seakale">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Result"
+            android:textSize="23dp"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
+            <EditText
+                android:id="@+id/etnameRadmin"
+                android:layout_width="355dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="35dp"
+                android:backgroundTint="@color/white"
+                android:hint="Name"
+                android:minHeight="48dp"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                />
+            <EditText
+                android:id="@+id/etpasswordRadmin"
+                android:layout_width="355dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="70dp"
+                android:backgroundTint="@color/white"
+                android:hint="Password"
+                android:minHeight="48dp"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+            <EditText
+                android:id="@+id/etcontactRadmin"
+                android:layout_width="355dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="105dp"
+                android:backgroundTint="@color/white"
+                android:hint="Contact No"
+                android:minHeight="48dp"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="160dp"
+                android:backgroundTint="@color/white"
+                android:text="Update"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/Teal"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:id="@+id/updateSUAdmin"/>
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+</LinearLayout>
+
+</FrameLayout>

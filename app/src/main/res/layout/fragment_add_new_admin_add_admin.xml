@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/Teal"
+    tools:context=".Admin.AddNewAdmin_add_admin">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/Seakale">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/icbackButnNAadmin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@color/Seakale"
+                    android:contentDescription="TODO"
+                    android:src="@drawable/back_arrow"
+                    tools:ignore="TouchTargetSizeCheck" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add New Admin"
+                    android:textSize="23dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="80dp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold">
+                </TextView>
+            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <ImageView
+            android:id="@+id/imageBusadmin"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:src="@drawable/bus_logo"
+            android:layout_marginTop="-50dp"
+            android:layout_gravity="center_horizontal"
+            />
+        <androidx.cardview.widget.CardView
+            android:layout_width="380dp"
+            android:layout_height="230dp"
+            android:layout_gravity="center_horizontal|center"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="10dp"
+            android:id="@+id/cd"
+            app:cardBackgroundColor="@color/Seakale">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Admin Information"
+                android:textSize="23dp"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/white"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/etnameNAadmin"
+                android:layout_width="355dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="35dp"
+                android:backgroundTint="@color/white"
+                android:hint="Name"
+                android:minHeight="48dp"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+            <EditText
+                android:id="@+id/etpasswordNAadmin"
+                android:layout_width="355dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="70dp"
+                android:backgroundTint="@color/white"
+                android:hint="Password"
+                android:minHeight="48dp"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"/>
+
+            <EditText
+                android:id="@+id/etcontactNAadmin"
+                android:layout_width="355dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="105dp"
+                android:backgroundTint="@color/white"
+                android:hint="Contact No"
+                android:minHeight="48dp"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+            <LinearLayout
+                android:layout_width="330dp"
+                android:layout_height="57dp"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:layout_marginTop="160dp"
+                android:background="@drawable/bg_stroke">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gender:"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:layout_marginBottom="8dp"/>
+
+                <CheckBox
+                    android:id="@+id/checkbox_male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="60dp"
+                    android:button="@drawable/custom_checkbox"
+                    android:minHeight="48dp"
+                    android:text="Male"
+                    android:textColor="@color/white"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <CheckBox
+                    android:id="@+id/checkbox_female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/custom_checkbox"
+                    android:minHeight="48dp"
+                    android:text="Female"
+                    android:textColor="@color/white"
+                    tools:ignore="TouchTargetSizeCheck" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="370dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/white"
+            android:text="ADD"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/cd1"
+            android:textColor="@color/Teal"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:id="@+id/ADD_NA_admin"/>
+
+
+    </LinearLayout>
+</FrameLayout>
