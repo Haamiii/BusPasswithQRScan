@@ -2,10 +2,10 @@ package com.example.buspasswithqrscan.Student;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,23 +22,14 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.Dot;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PatternItem;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.lang.reflect.Array;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -73,134 +64,51 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
         }
 
-        LatLng startLocation = new LatLng(33.6508, 73.0849); // 6th Road
-        LatLng endLocation = new LatLng(33.5896, 73.0551); // Saddar
+        // Define the list of LatLng points
+        List<LatLng> locations = Arrays.asList(
+                new LatLng(33.64325112591696, 73.07900336499642), // BIIT
+                new LatLng(33.643368972962264, 73.07771405505343), // 6th Road
+                new LatLng(33.64179536612695, 73.07721883973113), // 6th Road
+                new LatLng(33.64133342515115, 73.07870798076382), // Iran Road
+                new LatLng(33.63402779181908, 73.07629543322966) // Sadiqabad
+        );
 
-        mMap.addMarker(new MarkerOptions().position(startLocation).title("6th Road"));
-        mMap.addMarker(new MarkerOptions().position(endLocation).title("Saddar"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startLocation, 12f));
+        // Define the names for each location
+        List<String> locationNames = Arrays.asList(
+                "BIIT",
+                "6th Road",
+                "6th Road",
+                "Iran Road",
+                "Sadiqabad"
+        );
 
-        List<PatternItem> pattern= Arrays.asList(new Dot());
-        PolylineOptions polyline=new PolylineOptions();
-        polyline.add(startLocation,endLocation);
-        polyline.color(Color.RED);
-        polyline.width(10);
-        polyline.pattern(pattern);
-        mMap.addPolyline(polyline);
-
-        LatLngBounds.Builder builder=new LatLngBounds.Builder();
-        builder.include(startLocation);
-        builder.include(endLocation);
-        LatLngBounds bounds=builder.build();
-        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds,100));
-
-        //drawRoute(startLocation, endLocation);
-    }
-
-    private void drawRoute(LatLng start, LatLng end) {
-        String url = getDirectionsUrl(start, end);
-        new FetchURL().execute(url);
-    }
-
-    private String getDirectionsUrl(LatLng origin, LatLng dest) {
-        String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
-        String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
-        String sensor = "sensor=false";
-        String key = "key=" ; // Replace with your actual API key
-        String parameters = str_origin + "&" + str_dest + "&" + sensor + "&" + key;
-        return "https://maps.googleapis.com/maps/api/directions/json?" + parameters;
-    }
-
-    private class FetchURL extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... url) {
-            String data = "";
-            try {
-                data = downloadUrl(url[0]);
-            } catch (Exception e) {
-                Log.e(TAG, "Error fetching directions", e);
-            }
-            return data;
+        // Add markers for each location
+        for (int i = 0; i < locations.size(); i++) {
+            LatLng location = locations.get(i);
+            String locationName = locationNames.get(i);
+            mMap.addMarker(new MarkerOptions().position(location).title(locationName));
         }
 
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            try {
-                JSONObject jsonObject = new JSONObject(result);
-                JSONArray routes = jsonObject.getJSONArray("routes");
-                if (routes.length() > 0) {
-                    JSONObject route = routes.getJSONObject(0);
-                    JSONObject overviewPolyline = route.getJSONObject("overview_polyline");
-                    String points = overviewPolyline.getString("points");
-                    List<LatLng> decodedPath = decodePoly(points);
-                    PolylineOptions polylineOptions = new PolylineOptions()
-                            .addAll(decodedPath)
-                            .width(10)
-                            .color(R.color.Teal) // Set the color to your preference
-                            .geodesic(true);
-                    mMap.addPolyline(polylineOptions);
-                } else {
-                    Toast.makeText(requireContext(), "No routes found", Toast.LENGTH_SHORT).show();
-                }
-            } catch (JSONException e) {
-                Log.e(TAG, "Error parsing directions", e);
-            }
+        // Draw the polyline connecting all points
+        PolylineOptions polylineOptions = new PolylineOptions()
+                .addAll(locations)
+                .color(Color.RED)
+                .width(10);
+
+        mMap.addPolyline(polylineOptions);
+
+        // Add bus icon at one of the locations along the polyline
+        LatLng busLocation = new LatLng(33.64053299503377, 73.0785520191526); // Example: bus on Iran Road
+        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.busonmap); // Assuming you have a bus icon resource
+        mMap.addMarker(new MarkerOptions().position(busLocation).icon(icon));
+
+        // Move the camera to show all markers
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        for (LatLng location : locations) {
+            builder.include(location);
         }
-
-        private String downloadUrl(String strUrl) throws Exception {
-            String data = "";
-            HttpURLConnection urlConnection = null;
-            try {
-                URL url = new URL(strUrl);
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.connect();
-                BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                StringBuilder sb = new StringBuilder();
-                String line;
-                while ((line = br.readLine()) != null) {
-                    sb.append(line);
-                }
-                data = sb.toString();
-                br.close();
-            } finally {
-                if (urlConnection != null) {
-                    urlConnection.disconnect();
-                }
-            }
-            return data;
-        }
-
-        private List<LatLng> decodePoly(String encoded) {
-            List<LatLng> poly = new ArrayList<>();
-            int index = 0, len = encoded.length();
-            int lat = 0, lng = 0;
-            while (index < len) {
-                int b, shift = 0, result = 0;
-                do {
-                    b = encoded.charAt(index++) - 63;
-                    result |= (b & 0x1f) << shift;
-                    shift += 5;
-                } while (b >= 0x20);
-                int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
-                lat += dlat;
-
-                shift = 0;
-                result = 0;
-                do {
-                    b = encoded.charAt(index++) - 63;
-                    result |= (b & 0x1f) << shift;
-                    shift += 5;
-                } while (b >= 0x20);
-                int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
-                lng += dlng;
-
-                LatLng p = new LatLng(((lat / 1E5)), ((lng / 1E5)));
-                poly.add(p);
-            }
-            return poly;
-        }
+        LatLngBounds bounds = builder.build();
+        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
     }
 
     @Override

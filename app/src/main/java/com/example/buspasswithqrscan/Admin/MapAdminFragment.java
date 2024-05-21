@@ -2,6 +2,7 @@ package com.example.buspasswithqrscan.Admin;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -26,10 +27,15 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MapAdminFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
@@ -37,6 +43,7 @@ public class MapAdminFragment extends Fragment implements OnMapReadyCallback, Go
 
     private GoogleMap mMap;
     private SupportMapFragment mapFragment;
+    private List<LatLng> routeLocations = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,10 +78,53 @@ public class MapAdminFragment extends Fragment implements OnMapReadyCallback, Go
             ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
         }
 
-        LatLng uni = new LatLng(33.64098, 73.07782);
-        mMap.addMarker(new MarkerOptions().position(uni).title("Barani Institute of Information Technology"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(uni, 15f));
+        // Define the list of LatLng points
+        List<LatLng> locations = Arrays.asList(
+                new LatLng(33.64325112591696, 73.07900336499642), // BIIT
+                new LatLng(33.643368972962264, 73.07771405505343), // 6th Road
+                new LatLng(33.64179536612695, 73.07721883973113), // 6th Road
+                new LatLng(33.64133342515115, 73.07870798076382), // Iran Road
+                new LatLng(33.63402779181908, 73.07629543322966) // Sadiqabad
+        );
+
+        // Define the names for each location
+        List<String> locationNames = Arrays.asList(
+                "BIIT",
+                "6th Road",
+                "6th Road",
+                "Iran Road",
+                "Sadiqabad"
+        );
+
+        // Add markers for each location
+        for (int i = 0; i < locations.size(); i++) {
+            LatLng location = locations.get(i);
+            String locationName = locationNames.get(i);
+            mMap.addMarker(new MarkerOptions().position(location).title(locationName));
+        }
+
+        // Draw the polyline connecting all points
+        PolylineOptions polylineOptions = new PolylineOptions()
+                .addAll(locations)
+                .color(Color.RED)
+                .width(10);
+
+        mMap.addPolyline(polylineOptions);
+
+        // Add bus icon at one of the locations along the polyline
+        LatLng busLocation = new LatLng(33.64053299503377, 73.0785520191526); // Example: bus on Iran Road
+        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.busonmap); // Assuming you have a bus icon resource
+        mMap.addMarker(new MarkerOptions().position(busLocation).icon(icon));
+
+        // Move the camera to show all markers
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        for (LatLng location : locations) {
+            builder.include(location);
+        }
+        LatLngBounds bounds = builder.build();
+        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
     }
+
 
     private void showPopupMenu(final LatLng latLng) {
         View popupView = getLayoutInflater().inflate(R.layout.popup_menu, null);
@@ -193,9 +243,38 @@ public class MapAdminFragment extends Fragment implements OnMapReadyCallback, Go
 
     private void addNewStop(LatLng latLng, String stopName) {
         mMap.addMarker(new MarkerOptions().position(latLng).title(stopName));
+
     }
 
-    private void addNewRoute(LatLng latLng, String routeName, String category) {
-        // Implementation for adding a new route with a category
+    private void addNewRoute(LatLng latLng, String routeName, String selectedCategory) {
+        routeLocations.add(latLng); // Add the new location to the route list
+        drawRoute(); // Draw the updated route on the map
+    }
+
+    private void drawRoute() {
+        // Clear previous route
+        mMap.clear();
+
+        // Draw markers for each stop
+        for (int i = 0; i < routeLocations.size(); i++) {
+            LatLng location = routeLocations.get(i);
+            mMap.addMarker(new MarkerOptions().position(location).title("Stop " + (i + 1)));
+        }
+
+        // Draw the polyline connecting all points
+        PolylineOptions polylineOptions = new PolylineOptions()
+                .addAll(routeLocations)
+                .color(Color.RED)
+                .width(10);
+
+        mMap.addPolyline(polylineOptions);
+
+        // Move the camera to show all markers
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        for (LatLng location : routeLocations) {
+            builder.include(location);
+        }
+        LatLngBounds bounds = builder.build();
+        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
     }
 }

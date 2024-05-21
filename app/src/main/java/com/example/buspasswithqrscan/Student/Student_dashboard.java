@@ -11,7 +11,9 @@ public class Student_dashboard extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     HomeFragment homeFragment = new HomeFragment();
     MapFragment mapFragment = new MapFragment();
-    QrCodeFragment qrCodeFragment = new QrCodeFragment();
+    String studentId = "YourStudentIDHere"; // Replace this with the actual student ID
+    QrCodeFragment qrCodeFragment = QrCodeFragment.newInstance(studentId);
+
     NotificationsFragment notificationsFragment = new NotificationsFragment();
     ProfileFragment profileFragment = new ProfileFragment();
 
