@@ -9,15 +9,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.buspasswithqrscan.R;
+import com.example.buspasswithqrscan.Student.model.Favourite_stopModel;
 import com.example.buspasswithqrscan.Student.model.StopModel;
 
 import java.util.List;
 
 public class TabAdapter extends RecyclerView.Adapter<TabAdapter.ViewHolder> {
 
-    List<StopModel> stopModelList;
+    List<Favourite_stopModel> stopModelList;
 
-    public TabAdapter(List<StopModel> list) {
+    public TabAdapter(List<Favourite_stopModel> list) {
         this.stopModelList = list;
     }
 
@@ -30,10 +31,10 @@ public class TabAdapter extends RecyclerView.Adapter<TabAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull TabAdapter.ViewHolder holder, int position) {
-        StopModel model = stopModelList.get(position);
-        holder.tvStopName.setText(model.getStopName());
-        holder.tvRouteNo.setText(String.valueOf(model.getRouteNo()));
-        holder.tvStopTime.setText(model.getStopTime());
+        Favourite_stopModel model = stopModelList.get(position);
+        holder.tvStopName.setText(model.getName());
+        holder.tvRouteNo.setText(String.valueOf(model.getRoute()));
+        holder.tvStopTime.setText(model.getTiming());
     }
 
     @Override

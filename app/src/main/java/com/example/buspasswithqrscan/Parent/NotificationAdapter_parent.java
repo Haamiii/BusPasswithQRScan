@@ -13,17 +13,15 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.buspasswithqrscan.Parent.model.NotificationParentModel;
 import com.example.buspasswithqrscan.R;
-import com.example.buspasswithqrscan.Student.NotificationAdapter;
-import com.example.buspasswithqrscan.Student.Notification_details;
-import com.example.buspasswithqrscan.Student.model.NotificationModel;
 
 import java.util.List;
 
 public class NotificationAdapter_parent extends RecyclerView.Adapter<NotificationAdapter_parent.ViewHolder> {
-    List<NotificationModel> notificationModelsList;
+    List<NotificationParentModel> notificationModelsList;
     Context context;
-    public NotificationAdapter_parent(List<NotificationModel> notificationModelsList, Context context) {
+    public NotificationAdapter_parent(List<NotificationParentModel> notificationModelsList, Context context) {
         this.context= context;
         this.notificationModelsList = notificationModelsList;
     }
@@ -38,7 +36,7 @@ public class NotificationAdapter_parent extends RecyclerView.Adapter<Notificatio
     @Override
     public void onBindViewHolder(@NonNull NotificationAdapter_parent.ViewHolder holder, int position) {
 
-        NotificationModel model= notificationModelsList.get(position);
+        NotificationParentModel model= notificationModelsList.get(position);
         holder.tvNotificationTitle.setText(model.getTitle());
         holder.tvNotificationMsg.setText(model.getMsg());
         holder.tvtime.setText(model.getTime());

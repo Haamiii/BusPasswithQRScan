@@ -42,7 +42,11 @@
         android:textColorHint="@color/white"
         android:textSize="20dp" />
 
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:backgroundTint="@color/white">
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
@@ -53,10 +57,21 @@
         android:backgroundTint="@color/white"
         android:hint="Password"
         android:minHeight="48dp"
+        android:inputType="textPassword"
         android:scrollbarStyle="insideInset"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="20dp" />
+        <ImageView
+            android:id="@+id/password_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_eye_off"/>
+    </RelativeLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"

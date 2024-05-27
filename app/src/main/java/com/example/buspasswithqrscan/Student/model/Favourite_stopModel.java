@@ -1,12 +1,23 @@
 package com.example.buspasswithqrscan.Student.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class Favourite_stopModel implements Serializable {
-    int id;
-    String text;
-
-    boolean isChecked;
+    @SerializedName("Id")
+    private int id;
+    @SerializedName("Name")
+    private String name;
+    @SerializedName("Timing")
+    private String timing;
+    @SerializedName("Latitude")
+    private double latitude;
+    @SerializedName("Longitude")
+    private double longitude;
+    @SerializedName("Route")
+    private int route;
+    private boolean isChecked;
 
     public int getId() {
         return id;
@@ -16,12 +27,44 @@ public class Favourite_stopModel implements Serializable {
         this.id = id;
     }
 
-    public String getText() {
-        return text;
+    public String getName() {
+        return name;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTiming() {
+        return timing;
+    }
+
+    public void setTiming(String timing) {
+        this.timing = timing;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public int getRoute() {
+        return route;
+    }
+
+    public void setRoute(int route) {
+        this.route = route;
     }
 
     public boolean isChecked() {
@@ -30,11 +73,5 @@ public class Favourite_stopModel implements Serializable {
 
     public void setChecked(boolean checked) {
         isChecked = checked;
-    }
-
-    public Favourite_stopModel(int id, String text, boolean isChecked) {
-        this.id = id;
-        this.text = text;
-        this.isChecked = isChecked;
     }
 }

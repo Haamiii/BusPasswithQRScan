@@ -37,9 +37,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     public void onBindViewHolder(@NonNull NotificationAdapter.ViewHolder holder, int position) {
 
         NotificationModel model= notificationModelsList.get(position);
-        holder.tvNotificationTitle.setText(model.getTitle());
-        holder.tvNotificationMsg.setText(model.getMsg());
-        holder.tvtime.setText(model.getTime());
+        holder.tvNotificationTitle.setText(model.getType());
+        holder.tvNotificationMsg.setText(model.getDescription());
+       // holder.tvtime.setText(model.getTime());
         holder.tvdate.setText(model.getDate());
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +58,13 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         return notificationModelsList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public void updateData(List<NotificationModel> studentNotification) {
+        this.notificationModelsList.clear();
+        this.notificationModelsList.addAll(studentNotification);
+        notifyDataSetChanged();
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         CardView cardView;
         TextView tvNotificationTitle,tvNotificationMsg,tvtime,tvdate;

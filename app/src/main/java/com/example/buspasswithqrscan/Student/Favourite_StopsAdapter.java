@@ -1,5 +1,6 @@
 package com.example.buspasswithqrscan.Student;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,29 +19,34 @@ import java.util.List;
 
 public class Favourite_StopsAdapter extends RecyclerView.Adapter<Favourite_StopsAdapter.ViewHolder> {
 
-    List<Favourite_stopModel> favourite_stopModelList;
-    Context context;
+    private List<Favourite_stopModel> favourite_stopModelList;
+    private Context context;
+    private OnItemCheckedChangeListener onItemCheckedChangeListener;
 
-    public Favourite_StopsAdapter(List<Favourite_stopModel> favourite_stopModelList, Context context) {
-        this.context = context;
+    public interface OnItemCheckedChangeListener {
+        void onItemCheckedChanged(int position, boolean isChecked,Favourite_stopModel model);
+    }
+
+    public Favourite_StopsAdapter(List<Favourite_stopModel> favourite_stopModelList, OnItemCheckedChangeListener listener) {
         this.favourite_stopModelList = favourite_stopModelList;
+        this.onItemCheckedChangeListener = listener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        context= parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_fouritestop_items, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Favourite_stopModel model = favourite_stopModelList.get(position);
 
         holder.checkBox.setChecked(model.isChecked());
-        holder.checkBox.setText(model.getText());
+        holder.checkBox.setText(model.getName());
 
-        // Set a tag to identify the position of the item clicked
         holder.checkBox.setTag(position);
 
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -48,6 +54,9 @@ public class Favourite_StopsAdapter extends RecyclerView.Adapter<Favourite_Stops
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 int adapterPosition = holder.getAdapterPosition();
                 favourite_stopModelList.get(adapterPosition).setChecked(isChecked);
+                if (onItemCheckedChangeListener != null) {
+                    onItemCheckedChangeListener.onItemCheckedChanged(adapterPosition, isChecked,favourite_stopModelList.get(position));
+                }
             }
         });
     }
@@ -58,7 +67,6 @@ public class Favourite_StopsAdapter extends RecyclerView.Adapter<Favourite_Stops
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
         CheckBox checkBox;
 
         public ViewHolder(@NonNull View itemView) {

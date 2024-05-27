@@ -3,75 +3,90 @@ package com.example.buspasswithqrscan.Student.model;
 import java.io.Serializable;
 
 public class HistoryModel implements Serializable {
-    String passid;
-    String title;
-    String stopname;
-    String date;
-    String time,route,bus;
+    int Id,PassId,StudentId,BusId,RouteId,StopId;
+    String Date,Time,Type;
 
-    public String getPassid() {
-        return passid;
+    public int getId() {
+        return Id;
     }
 
-    public void setPassid(String passid) {
-        this.passid = passid;
+    public void setId(int id) {
+        Id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public int getPassId() {
+        return PassId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setPassId(int passId) {
+        PassId = passId;
     }
 
-    public String getStopname() {
-        return stopname;
+    public int getStudentId() {
+        return StudentId;
     }
 
-    public void setStopname(String stopname) {
-        this.stopname = stopname;
+    public void setStudentId(int studentId) {
+        StudentId = studentId;
+    }
+
+    public int getBusId() {
+        return BusId;
+    }
+
+    public void setBusId(int busId) {
+        BusId = busId;
+    }
+
+    public int getRouteId() {
+        return RouteId;
+    }
+
+    public void setRouteId(int routeId) {
+        RouteId = routeId;
+    }
+
+    public int getStopId() {
+        return StopId;
+    }
+
+    public void setStopId(int stopId) {
+        StopId = stopId;
     }
 
     public String getDate() {
-        return date;
+        return Date;
     }
 
     public void setDate(String date) {
-        this.date = date;
+        Date = date;
     }
 
     public String getTime() {
-        return time;
+        return Time;
     }
 
     public void setTime(String time) {
-        this.time = time;
+        Time = time;
     }
 
-    public String getRoute() {
-        return route;
+    public String getType() {
+        return Type;
     }
 
-    public void setRoute(int route) {
-        this.route = String.valueOf(route);
+    public void setType(String type) {
+        Type = type;
     }
 
-    public String getBus() {
-        return bus;
-    }
-
-    public void setBus(int bus) {
-        this.bus = String.valueOf(bus);
-    }
-
-    public HistoryModel(String passid, String title, String stopname, String date, String time, String route, String bus) {
-        this.passid = passid;
-        this.title = title;
-        this.stopname = stopname;
-        this.date = date;
-        this.time = time;
-        this.route = route;
-        this.bus = bus;
+    public HistoryModel(int id, int passId, int studentId, int busId, int routeId, int stopId, String date, String time, String type) {
+        Id = id;
+        PassId = passId;
+        StudentId = studentId;
+        BusId = busId;
+        RouteId = routeId;
+        StopId = stopId;
+        Date = date;
+        Time = time;
+        Type = type;
     }
 }

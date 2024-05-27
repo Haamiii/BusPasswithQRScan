@@ -32,10 +32,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Add New Admin"
+                    android:text="Add New Bus"
                     android:textSize="23dp"
                     android:layout_marginTop="15dp"
-                    android:layout_marginLeft="80dp"
+                    android:layout_marginLeft="100dp"
                     android:textColor="@color/white"
                     android:textStyle="bold">
                 </TextView>

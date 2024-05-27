@@ -33,14 +33,14 @@ public class Notification_details extends AppCompatActivity {
         });
 
         NotificationModel model=(NotificationModel) getIntent().getSerializableExtra("model");
-        Toast.makeText(this,""+model.getTitle(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,""+model.getType(), Toast.LENGTH_SHORT).show();
         tvtime=findViewById(R.id.tvtime);
         tvdate=findViewById(R.id.tvdate);
         tvDiscription=findViewById(R.id.tvDiscription);
         tv_stopTitle=findViewById(R.id.tv_stopTitle);
 
-        tv_stopTitle.setText(model.getTitle());
-        tvDiscription.setText(model.getMsg());
+        tv_stopTitle.setText(model.getType());
+        tvDiscription.setText(model.getDescription());
         tvtime.setText(model.getTime());
         tvdate.setText(model.getDate());
 
