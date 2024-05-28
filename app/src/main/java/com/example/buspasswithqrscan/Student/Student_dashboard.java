@@ -3,6 +3,7 @@ package com.example.buspasswithqrscan.Student;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.buspasswithqrscan.R;
+import com.example.buspasswithqrscan.network.SharedPreferenceManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Student_dashboard extends AppCompatActivity {
@@ -11,17 +12,23 @@ public class Student_dashboard extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     HomeFragment homeFragment = new HomeFragment();
     MapFragment mapFragment = new MapFragment();
-    String studentId = "YourStudentIDHere"; // Replace this with the actual student ID
-    QrCodeFragment qrCodeFragment = QrCodeFragment.newInstance(studentId);
-
     NotificationsFragment notificationsFragment = new NotificationsFragment();
     ProfileFragment profileFragment = new ProfileFragment();
-
+    String studentId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_dashboard);
+        // Retrieve PassId as String
+        Object passIdObject = SharedPreferenceManager.getInstance().get("PassId");
+        if (passIdObject instanceof Integer) {
+            studentId = String.valueOf(passIdObject);
+        } else if (passIdObject instanceof String) {
+            studentId = (String) passIdObject;
+        } else {
+            studentId = "";  // default value if PassId is not set
+        }
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -33,6 +40,7 @@ public class Student_dashboard extends AppCompatActivity {
                 return true;
 
             } else if (item.getItemId() == R.id.qr1) {
+                QrCodeFragment qrCodeFragment = QrCodeFragment.newInstance(studentId);
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, qrCodeFragment).commit();
                 return true;
 

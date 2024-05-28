@@ -53,8 +53,8 @@ public interface ApiService {
             , @PartMap Map<String, RequestBody> partBody
             , @Part List<MultipartBody.Part> imagePart);
 
-    @GET("Student?id=$")
-    Call<ApiResponse<Student>> getStudentDetails(@Query("userDetails.id") int studentId);
+    @GET("Student")
+    Call<ApiResponse<Student>> getStudentDetails(@Query("id") int studentId);
     @GET("Student/GetFavStops")
     Call<List<Favourite_stopModel>> getFavStops(@Query("id") int studentId);
 
@@ -68,6 +68,9 @@ public interface ApiService {
     Call<String>RemoveFavStop(@Query("studentId")int studentId, @Query("stopId")int stopId);
     @GET("Users/GetUserHistory")
     Call<List<HistoryModel>> getUserHistory(@Query("id") int userId, @Query("fDate") String fromDate, @Query("tDate") String toDate);
+
+    @PUT("Users/ChangePassword")
+    Call<ResponseBody> changePassword(@Body RequestBody requestBody);
 
 
 }

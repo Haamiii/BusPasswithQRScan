@@ -93,39 +93,39 @@ public class ProfileFragment extends Fragment {
     }
 
 
-    private void fetchStudentData() {
-        ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
-        Call<ApiResponse<Student>> call = apiService.getStudentDetails(SharedPreferenceManager.getInstance().read("user_id",0));
-        try {
-            call.enqueue(new Callback<ApiResponse<Student>>() {
-                @Override
-                public void onResponse(Call<ApiResponse<Student>> call, Response<ApiResponse<Student>> response) {
-                    if (response.isSuccessful() && response.body() != null) {
-                        Student student = response.body().getData();
-                        updateUI(student);
-                    } else {
-                        Toast.makeText(getContext(), "Failed to fetch data", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ApiResponse<Student>> call, Throwable t) {
-                    Toast.makeText(getContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        } catch (Exception e) {
-            Log.e(TAG, "Exception during network call: " + e.getMessage(), e);
-            Toast.makeText(getContext(), "Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show(); }
-    }
-
-    private void updateUI(Student student) {
-        nameTextView.setText(student.getName());
-        contactTextView.setText(student.getContact());
-        passIdTextView.setText(String.valueOf(student.getPassId()));
-        genderTextView.setText(student.getGender());
-        regNoTextView.setText(student.getRegNo());
-        passExpiryTextView.setText(student.getPassExpiry());
-    }
+//    private void fetchStudentData() {
+//        ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
+//        Call<ApiResponse<Student>> call = apiService.getStudentDetails(SharedPreferenceManager.getInstance().read("user_id",0));
+//        try {
+//            call.enqueue(new Callback<ApiResponse<Student>>() {
+//                @Override
+//                public void onResponse(Call<ApiResponse<Student>> call, Response<ApiResponse<Student>> response) {
+//                    if (response.isSuccessful() && response.body() != null) {
+//                        Student student = response.body().getData();
+//                        updateUI(student);
+//                    } else {
+//                        Toast.makeText(getContext(), "Failed to fetch data", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<ApiResponse<Student>> call, Throwable t) {
+//                    Toast.makeText(getContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//        } catch (Exception e) {
+//            Log.e(TAG, "Exception during network call: " + e.getMessage(), e);
+//            Toast.makeText(getContext(), "Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show(); }
+//    }
+//
+//    private void updateUI(Student student) {
+//        nameTextView.setText(student.getName());
+//        contactTextView.setText(student.getContact());
+//        passIdTextView.setText(String.valueOf(student.getPassId()));
+//        genderTextView.setText(student.getGender());
+//        regNoTextView.setText(student.getRegNo());
+//        passExpiryTextView.setText(student.getPassExpiry());
+//    }
 
 
 }

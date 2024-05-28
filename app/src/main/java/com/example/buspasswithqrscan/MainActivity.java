@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String userType = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
+
                 login(userType,password);
 
             }
@@ -89,6 +90,12 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             Log.d("MainActivity", "UserId not found in the response");
                         }
+                        if (studentObject.has("PassId")) {
+                            int PassId = studentObject.getInt("PassId");
+                            SharedPreferenceManager.getInstance().save("PassId",PassId);
+                        } else {
+                            Log.d("MainActivity", "PassId not found in the response");
+                        }
                         if (role == null){
                             Toast.makeText(MainActivity.this, "User Role Not Found", Toast.LENGTH_SHORT).show();
                         } else if (role.equals("Parent")) {
@@ -106,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                  catch (IOException e) {
                         throw new RuntimeException(e);
                     } catch (JSONException e) {
-                        throw new RuntimeException(e);
+                        Toast.makeText(MainActivity.this, "Wrong Password", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -131,3 +138,4 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 }
+//change when its not run

@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import java.util.Map;
+
 final public class SharedPreferenceManager {
 
+    private static final String KEY_USER_ID = "userId";
     private static SharedPreferenceManager sharedPreferenceManager = null;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -78,6 +81,20 @@ final public class SharedPreferenceManager {
         editor.putFloat(valueKey, value);
         editor.commit();
     }
+    public int getInt(String key, int defaultValue) {
+        return sharedPreferences.getInt(key, defaultValue);
+    }
 
+    public void saveUserId(int userId) {
+        save(KEY_USER_ID, userId);
+    }
+
+    public int getUserId() {
+        return getInt(KEY_USER_ID, -1);
+    }
+    public Object get(String key) {
+        Map<String, ?> allEntries = sharedPreferences.getAll();
+        return allEntries.get(key);
+    }
 
 }
