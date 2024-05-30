@@ -82,29 +82,38 @@ public class MainActivity extends AppCompatActivity {
                         JSONObject object=new JSONObject(response.body().string());
                         String role = object.getString("userRole");
                         SharedPreferenceManager.setSingletonInstance(MainActivity.this);
-                        JSONObject studentObject=object.getJSONObject("Students");
-                        SharedPreferenceManager.getInstance().save("user",studentObject.toString());
-                        if (studentObject.has("UserId")) {
-                            int userId = studentObject.getInt("UserId");
-                            SharedPreferenceManager.getInstance().save("userId", userId);
-                        } else {
-                            Log.d("MainActivity", "UserId not found in the response");
-                        }
-                        if (studentObject.has("PassId")) {
-                            int PassId = studentObject.getInt("PassId");
-                            SharedPreferenceManager.getInstance().save("PassId",PassId);
-                        } else {
-                            Log.d("MainActivity", "PassId not found in the response");
-                        }
+
                         if (role == null){
                             Toast.makeText(MainActivity.this, "User Role Not Found", Toast.LENGTH_SHORT).show();
-                        } else if (role.equals("Parent")) {
+                        }
+                        //PARENT
+                        else if (role.equals("Parent")) {
                             startActivity(Parent_dashboard.class);
-                        } else if (role.equals("Student")) {
+                        }
+                        //STUDENT
+                        else if (role.equals("Student")) {
                             startActivity(Student_dashboard.class);
-                        } else if (role.equals("Admin")){
+                            JSONObject studentObject=object.getJSONObject("Students");
+                            SharedPreferenceManager.getInstance().save("user",studentObject.toString());
+                            if (studentObject.has("UserId")) {
+                                int userId = studentObject.getInt("UserId");
+                                SharedPreferenceManager.getInstance().save("userId", userId);
+                            } else {
+                                Log.d("MainActivity", "UserId not found in the response");
+                            }
+                            if (studentObject.has("PassId")) {
+                                int PassId = studentObject.getInt("PassId");
+                                SharedPreferenceManager.getInstance().save("PassId",PassId);
+                            } else {
+                                Log.d("MainActivity", "PassId not found in the response");
+                            }
+                        }
+                        //ADMIN
+                        else if (role.equals("Admin")){
                             startActivity(Admin_dashboard.class);
-                        } else if (role.equals("Conductor")) {
+                        }
+                        //CONDUCTOR
+                        else if (role.equals("Conductor")) {
                             startActivity(Conductor_Dashboard.class);
                         } else {
                             Toast.makeText(MainActivity.this, "User Not Found", Toast.LENGTH_SHORT).show();

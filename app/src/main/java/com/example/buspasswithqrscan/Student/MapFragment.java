@@ -1,14 +1,15 @@
 package com.example.buspasswithqrscan.Student;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,8 +17,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.buspasswithqrscan.R;
+import com.example.buspasswithqrscan.Student.model.BusInfo;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -30,13 +33,13 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-    private static final String TAG = "MapFragment";
     private GoogleMap mMap;
     private SupportMapFragment mapFragment;
 
@@ -109,6 +112,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
         LatLngBounds bounds = builder.build();
         mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
+
+        // Set a custom info window adapter
+        mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(requireContext()));
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(@NonNull Marker marker) {
+                // Handle Info Window click if needed
+                // You can leave this empty or use it for additional actions
+            }
+        });
     }
 
     @Override
@@ -121,6 +134,59 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             } else {
                 Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+
+    class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
+
+        private final View mWindow;
+        private Context mContext;
+
+        CustomInfoWindowAdapter(Context context) {
+            mContext = context;
+            mWindow = LayoutInflater.from(context).inflate(R.layout.custom_info_window, null);
+        }
+
+        private void renderWindowText(Marker marker, View view) {
+            String title = marker.getTitle();
+            TextView tvTitle = view.findViewById(R.id.title);
+            if (!title.equals("")) {
+                tvTitle.setText(title);
+            }
+
+            ViewPager2 viewPager = view.findViewById(R.id.viewPager);
+
+            // Dummy data for buses
+            List<BusInfo> busInfoList = new ArrayList<>();
+            busInfoList.add(new BusInfo( "Route 1", "8:00 AM"));
+            busInfoList.add(new BusInfo( "Route 2", "8:30 AM"));
+            busInfoList.add(new BusInfo( "Route 1", "8:15 AM"));
+
+            BusInfoPagerAdapter adapter = new BusInfoPagerAdapter(busInfoList);
+            viewPager.setAdapter(adapter);
+
+            Button btnAddToFavourites = view.findViewById(R.id.btnAddToFavourites);
+            btnAddToFavourites.setOnClickListener(v -> {
+                // Handle add to favourites logic
+                Toast.makeText(mContext, title + " added to favourites", Toast.LENGTH_SHORT).show();
+            });
+
+            Button btnClose = view.findViewById(R.id.btnClose);
+            btnClose.setOnClickListener(v -> {
+                marker.hideInfoWindow();
+            });
+        }
+
+        @Override
+        public View getInfoWindow(Marker marker) {
+            renderWindowText(marker, mWindow);
+            return mWindow;
+        }
+
+        @Override
+        public View getInfoContents(Marker marker) {
+            renderWindowText(marker, mWindow);
+            return mWindow;
         }
     }
 }
