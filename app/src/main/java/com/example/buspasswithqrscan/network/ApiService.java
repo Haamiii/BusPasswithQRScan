@@ -1,13 +1,16 @@
 package com.example.buspasswithqrscan.network;
 
-
+import com.example.buspasswithqrscan.Parent.model.ChildrenLocation;
+import com.example.buspasswithqrscan.Parent.model.Childsparent_Model;
+import com.example.buspasswithqrscan.Parent.model.HistoryModelParent;
+import com.example.buspasswithqrscan.Parent.model.NotificationParentModel;
+import com.example.buspasswithqrscan.Student.model.BusLocation;
 import com.example.buspasswithqrscan.Student.model.Favourite_stopModel;
 import com.example.buspasswithqrscan.Student.model.HistoryModel;
+import com.example.buspasswithqrscan.Student.model.StopModel;
 import com.example.buspasswithqrscan.Student.model.Student;
-
 import java.util.List;
 import java.util.Map;
-
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -60,10 +63,12 @@ public interface ApiService {
 
     @GET("Users/GetUserNotification")
     Call<ResponseBody> GetUserNotification(@Query("id")int userId);
+    @GET("Users/GetUserNotification")
+    Call<List<NotificationParentModel>> getUserNotifications(@Query("id") int userId);
 
 
     @POST("Student/AddFavStop")
-    Call<String>AddFavStop(@Query("studentId")int studentId, @Query("stopId")int stopId);
+    Call<String> AddFavStop(@Query("studentId") int studentId, @Query("stopId") int stopId);
     @DELETE("Student/RemoveFavStop")
     Call<String>RemoveFavStop(@Query("studentId")int studentId, @Query("stopId")int stopId);
     @GET("Users/GetUserHistory")
@@ -71,6 +76,26 @@ public interface ApiService {
 
     @PUT("Users/ChangePassword")
     Call<ResponseBody> changePassword(@Body RequestBody requestBody);
+    @PUT("Users/ChangePassword")
+    Call<ResponseBody> changePasswordParent(@Body RequestBody requestBody);
 
+    @Headers("Content-Type: application/json")
+    @GET("Stops/GetAllStops")
+    Call<List<List<StopModel>>> getAllStops();
+
+    @GET("Bus/GetBusesLocations")
+    Call<List<BusLocation>> getBusesLocations();
+
+//    @Headers("Content-Type: application/json")
+//    @GET("Users/GetChildrenByParentId")
+//    Call<List<Student>> getChildrenByParentId(@Query("parentId") int parentId);
+
+    @GET("Users/GetUserHistory")
+    Call<List<List<HistoryModelParent>>> getUserHistoryParent(@Query("id") int userId, @Query("fDate") String fromDate, @Query("tDate") String toDate);
+
+    @GET("Parent/GetChildren")
+    Call<List<Childsparent_Model>> getChildrenByParentId(@Query("Id") int parentId);
+    @GET("Parent/GetChildLocation")
+    Call<List<ChildrenLocation>> getChildLocation(@Query("id") int parentId);
 
 }

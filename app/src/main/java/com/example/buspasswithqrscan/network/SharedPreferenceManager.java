@@ -9,6 +9,7 @@ import java.util.Map;
 final public class SharedPreferenceManager {
 
     private static final String KEY_USER_ID = "userId";
+    private static final String KEY_STUDENT_ID = "studentId";
     private static SharedPreferenceManager sharedPreferenceManager = null;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -97,4 +98,7 @@ final public class SharedPreferenceManager {
         return allEntries.get(key);
     }
 
+    public int getStudentId() {
+        return getInt(KEY_STUDENT_ID,-1);
+    }
 }

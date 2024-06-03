@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomAlertDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:background">@color/Teal</item> <!-- Black background -->
+        <item name="android:textColor">#FFFFFF</item> <!-- White text color -->
+    </style>
+</resources>

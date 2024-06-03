@@ -21,7 +21,7 @@ public class BusInfo {
         this.pickuptime = pickuptime;
     }
 
-    public BusInfo(String routeNo, String pickuptime) {
+    public BusInfo() {
         this.routeNo = routeNo;
         this.pickuptime = pickuptime;
     }

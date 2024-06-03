@@ -50,7 +50,7 @@
                 android:layout_gravity="center_horizontal"/>
 
             <TextView
-                android:id="@+id/name"
+                android:id="@+id/nameparent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="25dp"
@@ -99,6 +99,7 @@
                     tools:ignore="TextSizeCheck" />
 
                 <TextView
+                    android:id="@+id/contactparent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
@@ -126,6 +127,7 @@
                     tools:ignore="TextSizeCheck" />
 
                 <TextView
+                    android:id="@+id/childenrollparent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
@@ -152,6 +154,7 @@
                     tools:ignore="TextSizeCheck" />
 
                 <TextView
+                    android:id="@+id/parentidparent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
@@ -179,6 +182,7 @@
                     tools:ignore="TextSizeCheck" />
 
                 <TextView
+                    android:id="@+id/usernameparent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"

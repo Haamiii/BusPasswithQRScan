@@ -5,32 +5,26 @@ import java.io.Serializable;
 public class NotificationParentModel implements Serializable {
 
 
-    String title;
-    String msg;
-    String date;
+    int Id;
+    String Date;
+    String Time;
+    String Type;
+    String Description;
 
-    public String getTitle() {
-        return title;
+    public int getId() {
+        return Id;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setId(int id) {
+        Id = id;
     }
 
     public String getDate() {
-        return date;
+        return Date;
     }
 
     public void setDate(String date) {
-        this.date = date;
+        Date = date;
     }
 
     public String getTime() {
@@ -41,15 +35,48 @@ public class NotificationParentModel implements Serializable {
         Time = time;
     }
 
-    public NotificationParentModel(String title, String msg, String date, String time) {
-        this.title = title;
-        this.msg = msg;
-        this.date = date;
-        Time = time;
+    public String getType() {
+        return Type;
     }
 
-    String Time;
+    public void setType(String type) {
+        Type = type;
+    }
 
+    public String getDescription() {
+        return Description;
+    }
 
+    public void setDescription(String description) {
+        Description = description;
+    }
 
+    public int getUserID() {
+        return UserID;
+    }
+
+    public void setUserID(int userID) {
+        UserID = userID;
+    }
+
+    public int getNotificationRead() {
+        return NotificationRead;
+    }
+
+    public void setNotificationRead(int notificationRead) {
+        NotificationRead = notificationRead;
+    }
+
+    public NotificationParentModel(int id, String date, String time, String type, String description, int userID, int notificationRead) {
+        Id = id;
+        Date = date;
+        Time = time;
+        Type = type;
+        Description = description;
+        UserID = userID;
+        NotificationRead = notificationRead;
+    }
+
+    int UserID;
+    int NotificationRead;
 }

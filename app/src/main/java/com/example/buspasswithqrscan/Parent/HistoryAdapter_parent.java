@@ -11,16 +11,16 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.buspasswithqrscan.R;
-import com.example.buspasswithqrscan.Parent.model.HistoryModel;
+import com.example.buspasswithqrscan.Parent.model.HistoryModelParent;
 
 import java.util.List;
 
 public class HistoryAdapter_parent extends RecyclerView.Adapter<HistoryAdapter_parent.ViewHolder> {
 
-    List<HistoryModel> historyModelsList;
+    List<HistoryModelParent> historyModelsListParent;
     Context context;
-    public HistoryAdapter_parent(List<HistoryModel> historyModelsList, Context context) {
-        this.historyModelsList = historyModelsList;
+    public HistoryAdapter_parent(List<HistoryModelParent> historyModelsListParent, Context context) {
+        this.historyModelsListParent = historyModelsListParent;
         this.context=context;
     }
 
@@ -33,11 +33,11 @@ public class HistoryAdapter_parent extends RecyclerView.Adapter<HistoryAdapter_p
 
     @Override
     public void onBindViewHolder(@NonNull HistoryAdapter_parent.ViewHolder holder, int position) {
-        HistoryModel model=historyModelsList.get(position);
-        holder.tvName.setText(model.getName());
+        HistoryModelParent model= historyModelsListParent.get(position);
+        holder.tvName.setText(model.getStudentName());
         holder.tvtitle.setText(model.getTitle());
-        holder.tvpassid.setText(model.getPassid());
-        holder.tvstopname.setText(model.getStopname());
+        holder.tvpassid.setText(model.getPassId());
+        holder.tvstopname.setText(model.getStopName());
         holder.tvroute.setText(model.getRoute());
         holder.tvbus.setText(model.getBus());
 
@@ -45,7 +45,16 @@ public class HistoryAdapter_parent extends RecyclerView.Adapter<HistoryAdapter_p
 
     @Override
     public int getItemCount() {
-        return historyModelsList.size();
+        return historyModelsListParent.size();
+    }
+
+    public void updateData(List<HistoryModelParent> historyList) {
+        this.historyModelsListParent= historyList;
+        notifyDataSetChanged();
+    }
+
+    public void clearData() {
+        this.historyModelsListParent.clear();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

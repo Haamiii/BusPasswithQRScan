@@ -89,10 +89,26 @@ public class MainActivity extends AppCompatActivity {
                         //PARENT
                         else if (role.equals("Parent")) {
                             startActivity(Parent_dashboard.class);
+                            JSONObject parentObject=object.getJSONObject("Parents");
+                            SharedPreferenceManager.getInstance().save("userParent",parentObject.toString());
+                            if (parentObject.has("UserId")){
+                                int userId=parentObject.getInt("UserId");
+                                SharedPreferenceManager.getInstance().save("UserId",userId);
+                            }else {
+                                Log.d("MainActivity","UserId Not Found In The Response");
+                            }
+                            if (parentObject.has("Id")){
+                                int parentId=parentObject.getInt("Id");
+                                SharedPreferenceManager.getInstance().save("parentId",parentId);
+                            }else {
+                                Log.d("MainActivity","parentId Not Found In The Response");
+                            }
+
                         }
                         //STUDENT
                         else if (role.equals("Student")) {
                             startActivity(Student_dashboard.class);
+
                             JSONObject studentObject=object.getJSONObject("Students");
                             SharedPreferenceManager.getInstance().save("user",studentObject.toString());
                             if (studentObject.has("UserId")) {
@@ -106,6 +122,12 @@ public class MainActivity extends AppCompatActivity {
                                 SharedPreferenceManager.getInstance().save("PassId",PassId);
                             } else {
                                 Log.d("MainActivity", "PassId not found in the response");
+                            }
+                            if (studentObject.has("Id")) {
+                                int studentId = studentObject.getInt("Id");
+                                SharedPreferenceManager.getInstance().save("studentId",studentId);
+                            } else {
+                                Log.d("MainActivity", "StudentId not found in the response");
                             }
                         }
                         //ADMIN

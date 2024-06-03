@@ -26,10 +26,12 @@ public class NotificationAdapter_parent extends RecyclerView.Adapter<Notificatio
         this.notificationModelsList = notificationModelsList;
     }
 
+
+
     @NonNull
     @Override
     public NotificationAdapter_parent.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_notification_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_notification_item_parent, parent, false);
         return new NotificationAdapter_parent.ViewHolder(view);
     }
 
@@ -37,9 +39,9 @@ public class NotificationAdapter_parent extends RecyclerView.Adapter<Notificatio
     public void onBindViewHolder(@NonNull NotificationAdapter_parent.ViewHolder holder, int position) {
 
         NotificationParentModel model= notificationModelsList.get(position);
-        holder.tvNotificationTitle.setText(model.getTitle());
-        holder.tvNotificationMsg.setText(model.getMsg());
-        holder.tvtime.setText(model.getTime());
+        holder.tvNotificationTitle.setText(model.getType());
+        holder.tvNotificationMsg.setText(model.getDescription());
+        //holder.tvtime.setText(model.getTime());
         holder.tvdate.setText(model.getDate());
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +68,11 @@ public class NotificationAdapter_parent extends RecyclerView.Adapter<Notificatio
     public int getItemCount() {
         return notificationModelsList.size();
     }
+    public void updateData(List<NotificationParentModel> parentNotification) {
+        this.notificationModelsList.clear();
+        this.notificationModelsList.addAll(parentNotification);
+        notifyDataSetChanged();
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -75,10 +82,10 @@ public class NotificationAdapter_parent extends RecyclerView.Adapter<Notificatio
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             cardView=itemView.findViewById(R.id.cvNotificationWrapper);
-            tvNotificationTitle=itemView.findViewById(R.id.tvNotificationTitle);
-            tvNotificationMsg=itemView.findViewById(R.id.tvNotificationMsg);
+            tvNotificationTitle=itemView.findViewById(R.id.tvNotificationTitleparent);
+            tvNotificationMsg=itemView.findViewById(R.id.tvNotificationMsgparent);
             tvtime=itemView.findViewById(R.id.tvtime);
-            tvdate=itemView.findViewById(R.id.tvdate);
+            tvdate=itemView.findViewById(R.id.tvdateparent);
             ivNotificationIcon=itemView.findViewById(R.id.ivNotificationIcon);
         }
     }

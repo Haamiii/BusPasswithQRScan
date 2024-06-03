@@ -101,7 +101,7 @@
 
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/editFrvtStop"
+                        android:id="@+id/trackmychild"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginLeft="20dp"
