@@ -130,14 +130,35 @@ public class MainActivity extends AppCompatActivity {
                                 Log.d("MainActivity", "StudentId not found in the response");
                             }
                         }
+                        //CONDUCTOR
+                        else if (role.equals("Conductor")) {
+                            startActivity(Conductor_Dashboard.class);
+                            JSONObject conductorObject=object.getJSONObject("Conductors");
+                            SharedPreferenceManager.getInstance().save("userConductor",conductorObject.toString());
+                            if (conductorObject.has("UserId")){
+                                int userId=conductorObject.getInt("UserId");
+                                SharedPreferenceManager.getInstance().save("userId",userId);
+                            } else {
+                                Log.d("MainActivity", "UserId not found in the response");
+                            }
+                            if (conductorObject.has("Id")){
+                                int conductorId=conductorObject.getInt("Id");
+                                SharedPreferenceManager.getInstance().save("conductorId",conductorId);
+                            }else {
+                                Log.d("MainActivity", "conductorId not found in the response");
+                            }
+                            if (conductorObject.has("BusId")){
+                                int BusId=conductorObject.getInt("BusId");
+                                SharedPreferenceManager.getInstance().save("BusId",BusId);
+                            }else {
+                                Log.d("MainActivity", "BusId not found in the response");
+                            }
+                        }
                         //ADMIN
                         else if (role.equals("Admin")){
                             startActivity(Admin_dashboard.class);
                         }
-                        //CONDUCTOR
-                        else if (role.equals("Conductor")) {
-                            startActivity(Conductor_Dashboard.class);
-                        } else {
+                        else {
                             Toast.makeText(MainActivity.this, "User Not Found", Toast.LENGTH_SHORT).show();
                         }
                     }

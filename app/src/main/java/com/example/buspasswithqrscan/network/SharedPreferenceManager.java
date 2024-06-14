@@ -68,6 +68,9 @@ final public class SharedPreferenceManager {
     public long read(String valueKey, long valueDefault) {
         return sharedPreferences.getLong(valueKey, valueDefault);
     }
+    public int readInt(String valuekey, int defaultValue) {
+        return sharedPreferences.getInt(valuekey, defaultValue);
+    }
 
     public void save(String valueKey, long value) {
         editor.putLong(valueKey, value);

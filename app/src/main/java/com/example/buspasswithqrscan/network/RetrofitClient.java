@@ -13,7 +13,7 @@ public class RetrofitClient {
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(logging).build();
         if (retrofit == null) {
-            retrofit = new Retrofit.Builder().baseUrl("http://192.168.70.148/WebApi/api/").client(client).addConverterFactory(GsonConverterFactory.create()).build();
+            retrofit = new Retrofit.Builder().baseUrl("http://192.168.0.112/WebApi/api/").client(client).addConverterFactory(GsonConverterFactory.create()).build();
         }
         return retrofit;
     }

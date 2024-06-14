@@ -108,7 +108,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="10dp"
             android:orientation="vertical">
 
             <TextView
@@ -127,9 +127,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Hamid Basar"
+                android:text="Hamid Basar Wahab"
                 android:textColor="@color/white"
-                android:textSize="20dp"
+                android:textSize="19dp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -253,7 +253,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginRight="40dp"
+            android:layout_marginRight="10dp"
             android:orientation="vertical">
 
             <TextView
@@ -272,9 +272,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="1-12-2025"
+                android:text="5/19/2025 12:00:00 AM"
                 android:textColor="@color/white"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textStyle="bold" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>

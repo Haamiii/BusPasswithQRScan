@@ -1,5 +1,6 @@
 package com.example.buspasswithqrscan.network;
 
+import com.example.buspasswithqrscan.Conductor.model.RouteModel;
 import com.example.buspasswithqrscan.Parent.model.ChildrenLocation;
 import com.example.buspasswithqrscan.Parent.model.Childsparent_Model;
 import com.example.buspasswithqrscan.Parent.model.HistoryModelParent;
@@ -97,5 +98,14 @@ public interface ApiService {
     Call<List<Childsparent_Model>> getChildrenByParentId(@Query("Id") int parentId);
     @GET("Parent/GetChildLocation")
     Call<List<ChildrenLocation>> getChildLocation(@Query("id") int parentId);
+
+    @GET("Conductor/GetAssignedRoutes")
+    Call<List<RouteModel>> getAssignedRoutes(@Query("conductorId") int conductorId);
+
+    @POST("Conductor/ReachedAtStop")
+    Call<ResponseBody> reachAtStop(@Query("busId") int busId, @Query("routeId") int routeId, @Query("stopId") int stopId);
+
+    @GET("Conductor/ScanQrCode")
+    Call<ResponseBody> scanQrCode(@Query("passId") int passId, @Query("busId") int busId);
 
 }

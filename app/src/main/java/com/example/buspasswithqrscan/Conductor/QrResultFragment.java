@@ -1,12 +1,11 @@
 package com.example.buspasswithqrscan.Conductor;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,6 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.buspasswithqrscan.R;
+
+import org.json.JSONObject;
 
 public class QrResultFragment extends Fragment {
 
@@ -37,15 +38,28 @@ public class QrResultFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Parse the JSON string and set the text of TextViews
         String qrResult = getArguments().getString(ARG_QR_RESULT);
-        // Assuming qrResult is in JSON format, you may need to parse it accordingly
+        displayResult(view, qrResult);
+    }
+
+    private void displayResult(View view, String qrResult) {
         try {
-            // Here, I'm assuming qrResult is a Base64 encoded image
-            byte[] decodedString = android.util.Base64.decode(qrResult, android.util.Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            ImageView imageView = view.findViewById(R.id.imageView);
-            imageView.setImageBitmap(decodedByte);
+            JSONObject jsonObject = new JSONObject(qrResult);
+            String studentName = jsonObject.getString("Name");
+            String regNo = jsonObject.getString("RegNo");
+            String remainingJourneys = jsonObject.getString("RemainingJourneys");
+            String gender = jsonObject.getString("Gender");
+            String passId = jsonObject.getString("PassId");
+            String passExpiry = jsonObject.getString("PassExpiry");
+            String passStatus = jsonObject.getString("PassStatus");
+
+            ((TextView) view.findViewById(R.id.studentNameValueTextView)).setText(studentName);
+            ((TextView) view.findViewById(R.id.regNoValueTextView)).setText(regNo);
+            ((TextView) view.findViewById(R.id.remainingJourneysValueTextView)).setText(remainingJourneys);
+            ((TextView) view.findViewById(R.id.genderValueTextView)).setText(gender);
+            ((TextView) view.findViewById(R.id.passIdValueTextView)).setText(passId);
+            ((TextView) view.findViewById(R.id.passExpiryDateValueTextView)).setText(passExpiry);
+            ((TextView) view.findViewById(R.id.tvvalid)).setText(passStatus);
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(getActivity(), "Invalid QR Code", Toast.LENGTH_SHORT).show();
