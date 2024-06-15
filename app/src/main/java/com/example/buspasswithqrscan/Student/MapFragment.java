@@ -21,6 +21,7 @@ import com.example.buspasswithqrscan.Student.model.BusLocation;
 import com.example.buspasswithqrscan.Student.model.StopModel;
 import com.example.buspasswithqrscan.network.ApiService;
 import com.example.buspasswithqrscan.network.RetrofitClient;
+import com.example.buspasswithqrscan.network.SharedPreferenceManager;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -47,6 +48,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private SupportMapFragment mapFragment;
     private ApiService apiService;
     private static final String TAG = "MapFragment";
+    private static final int ORGANIZATION_ID = SharedPreferenceManager.getInstance().readInt("OrganizationId",1);
+    private CustomInfoWindowAdapter infoWindowAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,6 +63,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
         mapFragment.getMapAsync(this);
         apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
+        infoWindowAdapter = new CustomInfoWindowAdapter(requireContext());
         return v;
     }
 
@@ -72,8 +76,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         } else {
             ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
         }
-
-        mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(requireContext()));
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                // Show the custom info window when marker is clicked
+                infoWindowAdapter.showBusInfoDialog(marker);
+                return true;
+            }
+        });
         fetchStopsAndRoutes();
         fetchBusesLocations();
     }
@@ -81,7 +91,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
 
     private void fetchStopsAndRoutes() {
-        Call<List<List<StopModel>>> call = apiService.getAllStops();
+        Call<List<List<StopModel>>> call = apiService.getAllRoutes(ORGANIZATION_ID);
         call.enqueue(new Callback<List<List<StopModel>>>() {
             @Override
             public void onResponse(Call<List<List<StopModel>>> call, Response<List<List<StopModel>>> response) {
@@ -143,7 +153,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void fetchBusesLocations() {
-        Call<List<BusLocation>> call = apiService.getBusesLocations();
+        Call<List<BusLocation>> call = apiService.getBusesLocations(ORGANIZATION_ID);
         call.enqueue(new Callback<List<BusLocation>>() {
             @Override
             public void onResponse(Call<List<BusLocation>> call, Response<List<BusLocation>> response) {

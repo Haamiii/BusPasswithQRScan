@@ -1,7 +1,5 @@
 package com.example.buspasswithqrscan;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -12,10 +10,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.buspasswithqrscan.Admin.Admin_dashboard;
 import com.example.buspasswithqrscan.Conductor.Conductor_Dashboard;
-import com.example.buspasswithqrscan.Student.Student_dashboard;
 import com.example.buspasswithqrscan.Parent.Parent_dashboard;
+import com.example.buspasswithqrscan.Student.Student_dashboard;
 import com.example.buspasswithqrscan.network.ApiService;
 import com.example.buspasswithqrscan.network.RetrofitClient;
 import com.example.buspasswithqrscan.network.SharedPreferenceManager;
@@ -126,7 +126,12 @@ public class MainActivity extends AppCompatActivity {
                             if (studentObject.has("Id")) {
                                 int studentId = studentObject.getInt("Id");
                                 SharedPreferenceManager.getInstance().save("studentId",studentId);
-                            } else {
+                            }
+                            if (studentObject.has("OrganizationId")){
+                                int OrganizationId=studentObject.getInt("OrganizationId");
+                                SharedPreferenceManager.getInstance().save("OrganizationId",OrganizationId);
+                            }
+                            else {
                                 Log.d("MainActivity", "StudentId not found in the response");
                             }
                         }
@@ -138,7 +143,12 @@ public class MainActivity extends AppCompatActivity {
                             if (conductorObject.has("UserId")){
                                 int userId=conductorObject.getInt("UserId");
                                 SharedPreferenceManager.getInstance().save("userId",userId);
-                            } else {
+                            }
+                            if (conductorObject.has("OrganizationId")){
+                                int OrganizationId=conductorObject.getInt("OrganizationId");
+                                SharedPreferenceManager.getInstance().save("OrganizationId",OrganizationId);
+                            }
+                            else {
                                 Log.d("MainActivity", "UserId not found in the response");
                             }
                             if (conductorObject.has("Id")){
@@ -150,7 +160,14 @@ public class MainActivity extends AppCompatActivity {
                             if (conductorObject.has("BusId")){
                                 int BusId=conductorObject.getInt("BusId");
                                 SharedPreferenceManager.getInstance().save("BusId",BusId);
-                            }else {
+                            }
+                            if (conductorObject.has("Id"))
+                            {
+                                int id=conductorObject.getInt("Id");
+                                SharedPreferenceManager.getInstance().save("Id",id);
+                            }
+
+                            else {
                                 Log.d("MainActivity", "BusId not found in the response");
                             }
                         }

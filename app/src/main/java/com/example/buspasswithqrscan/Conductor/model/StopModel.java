@@ -33,4 +33,5 @@ public class StopModel {
     public void setRoute(int route) {
         this.route = route;
     }
+
 }

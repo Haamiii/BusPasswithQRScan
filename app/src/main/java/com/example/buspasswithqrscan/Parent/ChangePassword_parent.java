@@ -1,18 +1,18 @@
 package com.example.buspasswithqrscan.Parent;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.buspasswithqrscan.R;
 import com.example.buspasswithqrscan.network.ApiService;
@@ -54,7 +54,8 @@ public class ChangePassword_parent extends Fragment {
             }
         });
 
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) AppCompatButton confirmButton = view.findViewById(R.id.confirmbtnparent);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"})
+        AppCompatButton confirmButton = view.findViewById(R.id.confirmbtnparent);
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,8 +80,8 @@ public class ChangePassword_parent extends Fragment {
     private void changePasswordParent(String oldPassword, String newPassword) {
         JSONObject passwordChangeObject = new JSONObject();
         try {
-            SharedPreferenceManager preferenceManager = SharedPreferenceManager.getInstance();
-            int userId = preferenceManager.getUserId();
+
+            int userId =SharedPreferenceManager.getInstance().readInt("UserId",0); // Retrieve user ID from shared preferences
             if (userId == -1) {
                 Toast.makeText(getContext(), "User ID not found", Toast.LENGTH_SHORT).show();
                 return;

@@ -1,5 +1,6 @@
 package com.example.buspasswithqrscan.network;
 
+import com.example.buspasswithqrscan.Conductor.model.JourneyStopsChecker;
 import com.example.buspasswithqrscan.Conductor.model.RouteModel;
 import com.example.buspasswithqrscan.Parent.model.ChildrenLocation;
 import com.example.buspasswithqrscan.Parent.model.Childsparent_Model;
@@ -10,8 +11,10 @@ import com.example.buspasswithqrscan.Student.model.Favourite_stopModel;
 import com.example.buspasswithqrscan.Student.model.HistoryModel;
 import com.example.buspasswithqrscan.Student.model.StopModel;
 import com.example.buspasswithqrscan.Student.model.Student;
+
 import java.util.List;
 import java.util.Map;
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -81,11 +84,11 @@ public interface ApiService {
     Call<ResponseBody> changePasswordParent(@Body RequestBody requestBody);
 
     @Headers("Content-Type: application/json")
-    @GET("Stops/GetAllStops")
-    Call<List<List<StopModel>>> getAllStops();
+    @GET("Stops/GetAllRoutes")
+    Call<List<List<StopModel>>> getAllRoutes(@Query("OrganizationId") int organizationId);
 
     @GET("Bus/GetBusesLocations")
-    Call<List<BusLocation>> getBusesLocations();
+    Call<List<BusLocation>> getBusesLocations(@Query("OrganizationId") int organizationId);
 
 //    @Headers("Content-Type: application/json")
 //    @GET("Users/GetChildrenByParentId")
@@ -102,10 +105,20 @@ public interface ApiService {
     @GET("Conductor/GetAssignedRoutes")
     Call<List<RouteModel>> getAssignedRoutes(@Query("conductorId") int conductorId);
 
-    @POST("Conductor/ReachedAtStop")
-    Call<ResponseBody> reachAtStop(@Query("busId") int busId, @Query("routeId") int routeId, @Query("stopId") int stopId);
-
+    @POST("Conductor/StartJourney")
+    Call<ResponseBody> startJourney(@Query("busId") int busId, @Query("routeId") int routeId);
+    @POST("Conductor/UpdateBusLocation")
+    Call<ResponseBody> updateBusLocation(@Body com.example.buspasswithqrscan.Conductor.model.BusLocation busLocation);
     @GET("Conductor/ScanQrCode")
     Call<ResponseBody> scanQrCode(@Query("passId") int passId, @Query("busId") int busId);
+    @POST("Conductor/ReachedAtStop")
+    Call<ResponseBody> ReachedAtStop(@Query("busId") int busId, @Query("routeId") int routeId, @Query("stopId") int stopId);
+    @GET("Conductor/GetBookedSeats")
+    Call<Integer> getBookedSeats(@Query("conductorId") int conductorId);
+    @GET("Conductor/GetNextStop")
+    Call<com.example.buspasswithqrscan.Conductor.model.StopModel> getNextStop(@Query("conductorId") int conductorId);
+    @GET("Conductor/GetRemainingStops")
+    Call<JourneyStopsChecker> getRemainingStops(@Query("conductorId") int conductorId);
+
 
 }

@@ -39,30 +39,33 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
     public CustomInfoWindowAdapter(Context context) {
         mContext = context;
         apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
-        fetchAllStopsData();
+        fetchStopsAndRoutes();
     }
 
-    private void fetchAllStopsData() {
-        apiService.getAllStops().enqueue(new Callback<List<List<StopModel>>>() {
+    private void fetchStopsAndRoutes() {
+        int OrganizationId=SharedPreferenceManager.getInstance().readInt("OrganizationId",1);
+        Call<List<List<StopModel>>> call = apiService.getAllRoutes(OrganizationId);
+        call.enqueue(new Callback<List<List<StopModel>>>() {
             @Override
             public void onResponse(Call<List<List<StopModel>>> call, Response<List<List<StopModel>>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     allStopsData = response.body();
                 } else {
                     allStopsData = new ArrayList<>();
+                    Log.e("CustomInfoWindow", "Failed to fetch stops and routes: " + response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<List<List<StopModel>>> call, Throwable t) {
                 allStopsData = new ArrayList<>();
+                Log.e("CustomInfoWindow", "Error fetching stops and routes: " + t.getMessage());
             }
         });
     }
 
     @Override
     public View getInfoWindow(Marker marker) {
-        showBusInfoDialog(marker);
         return null; // Return null so default info window is not displayed
     }
 
@@ -71,7 +74,7 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         return null; // Return null so default info window is not displayed
     }
 
-    private void showBusInfoDialog(Marker marker) {
+    void showBusInfoDialog(Marker marker) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View dialogView = inflater.inflate(R.layout.custom_info_window, null);
