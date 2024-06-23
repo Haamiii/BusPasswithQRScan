@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -21,13 +23,19 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.buspasswithqrscan.Admin.Model.ApiStops;
+import com.example.buspasswithqrscan.Admin.Model.BusLocations;
+import com.example.buspasswithqrscan.Admin.Model.Route;
+import com.example.buspasswithqrscan.Parent.model.ChildrenLocation;
 import com.example.buspasswithqrscan.R;
+import com.example.buspasswithqrscan.network.ApiService;
+import com.example.buspasswithqrscan.network.RetrofitClient;
+import com.example.buspasswithqrscan.network.SharedPreferenceManager;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -35,11 +43,15 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MapAdminFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    private static final String TAG = "MapAdminFragment";
 
     private GoogleMap mMap;
     private SupportMapFragment mapFragment;
@@ -78,53 +90,131 @@ public class MapAdminFragment extends Fragment implements OnMapReadyCallback, Go
             ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
         }
 
-        // Define the list of LatLng points
-        List<LatLng> locations = Arrays.asList(
-                new LatLng(33.64325112591696, 73.07900336499642), // BIIT
-                new LatLng(33.643368972962264, 73.07771405505343), // 6th Road
-                new LatLng(33.64179536612695, 73.07721883973113), // 6th Road
-                new LatLng(33.64133342515115, 73.07870798076382), // Iran Road
-                new LatLng(33.63402779181908, 73.07629543322966) // Sadiqabad
-        );
+        // Fetch routes and stops once the map is ready
+        fetchStops();
+        // Fetch routes and stops once the map is ready
+        fetchRoutesAndStops();
+        // Fetch and display bus locations
+        int organizationId = SharedPreferenceManager.getInstance().readInt("OrganizationId", 0);
+        fetchBusesLocations(organizationId);
+    }
 
-        // Define the names for each location
-        List<String> locationNames = Arrays.asList(
-                "BIIT",
-                "6th Road",
-                "6th Road",
-                "Iran Road",
-                "Sadiqabad"
-        );
+    private void fetchStops() {
+        ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
+        Call<List<ApiStops>> call = apiService.getAllStops();
+        call.enqueue(new Callback<List<ApiStops>>() {
+            @Override
+            public void onResponse(Call<List<ApiStops>> call, Response<List<ApiStops>> response) {
+                if (response.isSuccessful()) {
+                    List<ApiStops> stops = response.body();
+                    if (stops != null) {
+                        Log.d(TAG, "Stops fetched: " + stops.size());
+                        displayStopsOnMap(stops);
+                    } else {
+                        Log.d(TAG, "Stops response is null");
+                    }
+                } else {
+                    Log.d(TAG, "Failed to fetch stops: " + response.message());
+                    Toast.makeText(getContext(), "Failed to fetch stops", Toast.LENGTH_SHORT).show();
+                }
+            }
 
-        // Add markers for each location
-        for (int i = 0; i < locations.size(); i++) {
-            LatLng location = locations.get(i);
-            String locationName = locationNames.get(i);
-            mMap.addMarker(new MarkerOptions().position(location).title(locationName));
+            @Override
+            public void onFailure(Call<List<ApiStops>> call, Throwable t) {
+                Log.d(TAG, "API call failed: " + t.getMessage());
+                Toast.makeText(getContext(), "API call failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void displayStopsOnMap(List<ApiStops> stops) {
+        if (mMap == null) {
+            Log.d(TAG, "Map is not ready");
+            return;
         }
+        for (ApiStops stop : stops) {
+            LatLng latLng = new LatLng(stop.getLatitude(), stop.getLongitude());
+            mMap.addMarker(new MarkerOptions().position(latLng).title(stop.getName()));
+        }
+    }
 
-        // Draw the polyline connecting all points
-        PolylineOptions polylineOptions = new PolylineOptions()
-                .addAll(locations)
-                .color(Color.RED)
-                .width(10);
+    private void fetchRoutesAndStops() {
+        ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
+        int organizationid = SharedPreferenceManager.getInstance().readInt("OrganizationId", 0);
+        Log.d(TAG, "Fetching routes for organization ID: " + organizationid);
 
-        mMap.addPolyline(polylineOptions);
+        Call<List<List<ApiStops>>> call = apiService.getAllRoute(organizationid);
+        call.enqueue(new Callback<List<List<ApiStops>>>() {
+            @Override
+            public void onResponse(Call<List<List<ApiStops>>> call, Response<List<List<ApiStops>>> response) {
+                if (response.isSuccessful()) {
+                    List<List<ApiStops>> routes = response.body();
+                    if (routes != null) {
+                        Log.d(TAG, "Routes fetched: " + routes.size());
+                        displayRoutesOnMap(routes);
+                        displayStopsOnMap(routes); // New method to display stops
+                    } else {
+                        Log.d(TAG, "Routes response is null");
+                    }
+                } else {
+                    Log.d(TAG, "Failed to fetch routes: " + response.message());
+                    Toast.makeText(getContext(), "Failed to fetch routes", Toast.LENGTH_SHORT).show();
+                }
+            }
 
-        // Add bus icon at one of the locations along the polyline
-        LatLng busLocation = new LatLng(33.64053299503377, 73.0785520191526); // Example: bus on Iran Road
-        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.busonmap); // Assuming you have a bus icon resource
-        mMap.addMarker(new MarkerOptions().position(busLocation).icon(icon));
+            private void displayStopsOnMap(List<List<ApiStops>> routes) {
+                if (mMap == null) {
+                    Log.d(TAG, "Map is not ready");
+                    return;
+                }
+                for (List<ApiStops> route : routes) {
+                    for (ApiStops stop : route) {
+                        LatLng latLng = new LatLng(stop.getLatitude(), stop.getLongitude());
+                        mMap.addMarker(new MarkerOptions().position(latLng).title(stop.getName()));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<List<ApiStops>>> call, Throwable t) {
+                Log.d(TAG, "API call failed: " + t.getMessage());
+                Toast.makeText(getContext(), "API call failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void displayRoutesOnMap(List<List<ApiStops>> routes) {
+        if (mMap == null) {
+            Log.d(TAG, "Map is not ready");
+            return;
+        }
+        for (List<ApiStops> route : routes) {
+            List<LatLng> latLngs = new ArrayList<>();
+            for (ApiStops stop : route) {
+                LatLng latLng = new LatLng(stop.getLatitude(), stop.getLongitude());
+                mMap.addMarker(new MarkerOptions().position(latLng).title(stop.getName()));
+                latLngs.add(latLng);
+            }
+
+            // Draw polyline connecting stops in the route
+            PolylineOptions polylineOptions = new PolylineOptions()
+                    .addAll(latLngs)
+                    .color(Color.RED)
+                    .width(10);
+            mMap.addPolyline(polylineOptions);
+        }
 
         // Move the camera to show all markers
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
-        for (LatLng location : locations) {
-            builder.include(location);
+        for (List<ApiStops> route : routes) {
+            for (ApiStops stop : route) {
+                LatLng latLng = new LatLng(stop.getLatitude(), stop.getLongitude());
+                builder.include(latLng);
+            }
         }
         LatLngBounds bounds = builder.build();
         mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
     }
-
 
     private void showPopupMenu(final LatLng latLng) {
         View popupView = getLayoutInflater().inflate(R.layout.popup_menu, null);
@@ -216,9 +306,9 @@ public class MapAdminFragment extends Fragment implements OnMapReadyCallback, Go
             @Override
             public void onClick(View v) {
                 String routeName = editTextRouteName.getText().toString();
-                String selectedCategory = (String) spcategoryAdmin.getSelectedItem();
-                if (!routeName.isEmpty() && selectedCategory != null) {
-                    addNewRoute(latLng, routeName, selectedCategory);
+                String selectedStop = (String) spcategoryAdmin.getSelectedItem();
+                if (!routeName.isEmpty() && selectedStop != null) {
+                    addNewRoute(latLng, routeName, selectedStop);
                     popupWindow.dismiss();
                 }
             }
@@ -237,44 +327,126 @@ public class MapAdminFragment extends Fragment implements OnMapReadyCallback, Go
         List<String> categories = new ArrayList<>();
         categories.add("Chandni Chowk");
         categories.add("6th Road");
-        categories.add("ShamsAbad");
+        categories.add("Saddar");
+        categories.add("Marir Chowk");
+        categories.add("Double Road");
+        categories.add("IJP Road");
+        categories.add("Faizabad");
+        categories.add("Old Airport Road");
+        categories.add("Kurri Road");
         return categories;
     }
 
-    private void addNewStop(LatLng latLng, String stopName) {
+    private void addNewStop(final LatLng latLng, final String stopName) {
         mMap.addMarker(new MarkerOptions().position(latLng).title(stopName));
 
+        // Get the organization ID from shared preferences
+        int organizationId = SharedPreferenceManager.getInstance().readInt("OrganizationId", 0);
+
+        // Create a new Stop object
+        ApiStops stop = new ApiStops(0, stopName,"" ,latLng.latitude, latLng.longitude, 0, organizationId);
+
+        // Make the API call to insert the stop
+        ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
+        Call<String> call = apiService.insertStop(stop);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "Stop added successfully: " + response.body());
+                    Toast.makeText(getContext(), "Stop added successfully", Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.d(TAG, "Failed to add stop: " + response.message());
+                    Toast.makeText(getContext(), "Failed to add stop", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.d(TAG, "API call failed: " + t.getMessage());
+                Toast.makeText(getContext(), "API call failed", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    private void addNewRoute(LatLng latLng, String routeName, String selectedCategory) {
-        routeLocations.add(latLng); // Add the new location to the route list
-        drawRoute(); // Draw the updated route on the map
+    private void addNewRoute(LatLng latLng, String routeName, String selectedStops) {
+        // Prepare the route object
+        Route route = new Route(routeName, SharedPreferenceManager.getInstance().readInt("OrganizationId", 0), selectedStops);
+
+        // Call the API to insert the route
+        ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
+        Call<String> call = apiService.insertRoute(route);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "Route added successfully: " + response.body());
+                    Toast.makeText(getContext(), "Route added successfully", Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.d(TAG, "Failed to add route: " + response.message());
+                    Toast.makeText(getContext(), "Failed to add route", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.d(TAG, "API call failed: " + t.getMessage());
+                Toast.makeText(getContext(), "API call failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void fetchBusesLocations(int organizationId) {
+        ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
+        Call<List<BusLocations>> call = apiService.getBusesLocation(organizationId);
+        call.enqueue(new Callback<List<BusLocations>>() {
+            @Override
+            public void onResponse(Call<List<BusLocations>> call, Response<List<BusLocations>> response) {
+                if (response.isSuccessful()) {
+                    List<BusLocations> busLocations = response.body();
+                    if (busLocations != null) {
+                        displayBusLocations(busLocations);
+                    } else {
+                        Log.d(TAG, "Bus locations response is null");
+                    }
+                } else {
+                    Log.d(TAG, "Failed to fetch bus locations: " + response.message());
+                    Toast.makeText(getContext(), "Failed to fetch bus locations", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<BusLocations>> call, Throwable t) {
+                Log.d(TAG, "API call failed: " + t.getMessage());
+                Toast.makeText(getContext(), "API call failed", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    private void drawRoute() {
-        // Clear previous route
-        mMap.clear();
-
-        // Draw markers for each stop
-        for (int i = 0; i < routeLocations.size(); i++) {
-            LatLng location = routeLocations.get(i);
-            mMap.addMarker(new MarkerOptions().position(location).title("Stop " + (i + 1)));
+    private void displayBusLocations(List<BusLocations> busLocations) {
+        if (mMap == null) {
+            Log.d(TAG, "Map is not ready");
+            return;
         }
 
-        // Draw the polyline connecting all points
-        PolylineOptions polylineOptions = new PolylineOptions()
-                .addAll(routeLocations)
-                .color(Color.RED)
-                .width(10);
+        for (BusLocations busLocation : busLocations) {
+            // Extract information from BusLocation object
+            int busId = busLocation.getBusId();
+            int routeId = busLocation.getRouteId();
+            String routeTitle = busLocation.getRouteTitle();
+            ChildrenLocation.Location location = busLocation.getCords();
+            double latitude = location.getLatitude();
+            double longitude = location.getLongitude();
 
-        mMap.addPolyline(polylineOptions);
+            // Create LatLng object for bus location
+            LatLng latLng = new LatLng(latitude, longitude);
 
-        // Move the camera to show all markers
-        LatLngBounds.Builder builder = new LatLngBounds.Builder();
-        for (LatLng location : routeLocations) {
-            builder.include(location);
+            // Add marker for bus location
+            mMap.addMarker(new MarkerOptions()
+                    .position(latLng)
+                    .title("Bus ID: " + busId)
+                    .snippet("Route ID: " + routeId + "\nRoute Title: " + routeTitle)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.busmapmarker)));
         }
-        LatLngBounds bounds = builder.build();
-        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
     }
+
 }

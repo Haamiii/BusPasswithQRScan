@@ -1,5 +1,8 @@
 package com.example.buspasswithqrscan.network;
 
+import com.example.buspasswithqrscan.Admin.Model.ApiStops;
+import com.example.buspasswithqrscan.Admin.Model.BusLocations;
+import com.example.buspasswithqrscan.Admin.Model.Route;
 import com.example.buspasswithqrscan.Conductor.model.JourneyStopsChecker;
 import com.example.buspasswithqrscan.Conductor.model.RouteModel;
 import com.example.buspasswithqrscan.Parent.model.ChildrenLocation;
@@ -86,6 +89,9 @@ public interface ApiService {
     @Headers("Content-Type: application/json")
     @GET("Stops/GetAllRoutes")
     Call<List<List<StopModel>>> getAllRoutes(@Query("OrganizationId") int organizationId);
+    @Headers("Content-Type: application/json")
+    @GET("Stops/GetAllRoutes")
+    Call<List<List<ApiStops>>> getAllRoute(@Query("OrganizationId") int organizationId);
 
     @GET("Bus/GetBusesLocations")
     Call<List<BusLocation>> getBusesLocations(@Query("OrganizationId") int organizationId);
@@ -120,5 +126,15 @@ public interface ApiService {
     @GET("Conductor/GetRemainingStops")
     Call<JourneyStopsChecker> getRemainingStops(@Query("conductorId") int conductorId);
 
+    @POST("Admin/InsertStop")
+    Call<String> insertStop(@Body ApiStops stop);
 
+    @GET("Stops/GetAllStops")
+    Call<List<ApiStops>> getAllStops();
+
+    @POST("Admin/InsertRoute")
+    Call<String> insertRoute(@Body Route route);
+
+    @GET("Bus/GetBusesLocations")
+    Call<List<BusLocations>> getBusesLocation(@Query("OrganizationId") int organizationId);
 }

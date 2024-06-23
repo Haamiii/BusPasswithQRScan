@@ -174,6 +174,27 @@ public class MainActivity extends AppCompatActivity {
                         //ADMIN
                         else if (role.equals("Admin")){
                             startActivity(Admin_dashboard.class);
+                            JSONObject adminObject=object.getJSONObject("Admin");
+                            SharedPreferenceManager.getInstance().save("userAdmin",adminObject.toString());
+                            if (adminObject.has("UserId")){
+                                int userId=adminObject.getInt("UserId");
+                                SharedPreferenceManager.getInstance().save("userId",userId);
+                            }
+                            if (adminObject.has("OrganizationId")){
+                                int OrganizationId=adminObject.getInt("OrganizationId");
+                                SharedPreferenceManager.getInstance().save("OrganizationId",OrganizationId);
+                            }
+                            else {
+                                Log.d("MainActivity", "UserId not found in the response");
+                            }
+                            if (adminObject.has("Id")){
+                                int AdminId=adminObject.getInt("Id");
+                                SharedPreferenceManager.getInstance().save("AdminId",AdminId);
+                            }else {
+                                Log.d("MainActivity", "adminId not found in the response");
+                            }
+
+
                         }
                         else {
                             Toast.makeText(MainActivity.this, "User Not Found", Toast.LENGTH_SHORT).show();
