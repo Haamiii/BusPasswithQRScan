@@ -32,87 +32,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="History"
+                    android:text="Route Ranking"
                     android:textSize="23dp"
                     android:layout_marginTop="15dp"
-                    android:layout_marginLeft="114dp"
+                    android:layout_marginLeft="40dp"
                     android:textColor="@color/white"
                     android:textStyle="bold">
                 </TextView>
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="From: "
-                android:textColor="@color/white"
-                android:textSize="16dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="10dp"/>
-
-            <EditText
-                android:id="@+id/fromdatepicker"
-                android:layout_width="100dp"
-                android:paddingLeft="8dp"
-                android:layout_marginTop="5dp"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:background="@drawable/bg_stroke"
-                android:hint="DD/MM/YY"
-                android:textColorHint="@color/white"
-                android:textColor="@color/white"
-                android:textSize="16dp"
-
-                tools:ignore="TouchTargetSizeCheck" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="To: "
-                android:textColor="@color/white"
-                android:textSize="16dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="100dp"/>
-
-            <EditText
-                android:id="@+id/todatepicker"
-                android:paddingLeft="8dp"
-                android:layout_marginTop="5dp"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:background="@drawable/bg_stroke"
-                android:textColorHint="@color/white"
-                android:textColor="@color/white"
-                android:hint="DD/MM/YY"
-                android:textSize="16dp"
-                tools:ignore="TouchTargetSizeCheck" />
-
-        </LinearLayout>
-
-        <Spinner
-            android:id="@+id/spcategoryAdmin"
-            android:paddingLeft="8dp"
-            android:layout_marginTop="5dp"
-            android:layout_width="200dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
-            android:textAlignment="center"
-            android:outlineAmbientShadowColor="@color/white"
-            android:popupBackground="@color/white"
-            android:background="@drawable/bg_stroke"
-            android:textColorHint="@color/white"
-            android:textColor="@color/white"
-            android:textSize="30dp"
-            android:minHeight="48dp" />
 
 
 

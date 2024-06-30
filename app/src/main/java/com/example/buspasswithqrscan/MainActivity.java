@@ -16,6 +16,7 @@ import com.example.buspasswithqrscan.Admin.Admin_dashboard;
 import com.example.buspasswithqrscan.Conductor.Conductor_Dashboard;
 import com.example.buspasswithqrscan.Parent.Parent_dashboard;
 import com.example.buspasswithqrscan.Student.Student_dashboard;
+import com.example.buspasswithqrscan.SuperAdmin.activity_superadmin_dashboard;
 import com.example.buspasswithqrscan.network.ApiService;
 import com.example.buspasswithqrscan.network.RetrofitClient;
 import com.example.buspasswithqrscan.network.SharedPreferenceManager;
@@ -196,14 +197,20 @@ public class MainActivity extends AppCompatActivity {
 
 
                         }
-                        else {
+                        //SuperAdmin
+                        else if (role.equals("SuperAdmin")) {
+                        startActivity(activity_superadmin_dashboard.class);
+                        JSONObject SAobject=object.getJSONObject("SuperAdmin");
+                        SharedPreferenceManager.getInstance().save("userSuperAdmin",SAobject.toString());
+                        } else {
                             Toast.makeText(MainActivity.this, "User Not Found", Toast.LENGTH_SHORT).show();
                         }
                     }
                  catch (IOException e) {
                         throw new RuntimeException(e);
                     } catch (JSONException e) {
-                        Toast.makeText(MainActivity.this, "Wrong Password", Toast.LENGTH_SHORT).show();
+
+                     //   Toast.makeText(MainActivity.this, "Wrong Password", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -228,4 +235,3 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 }
-//change when its not run

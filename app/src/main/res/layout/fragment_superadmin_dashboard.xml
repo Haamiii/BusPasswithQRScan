@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:accessibilityLiveRegion="polite"
+    android:background="@color/Teal"
+    tools:context=".SuperAdmin.Fragment_superadmin_dashboard">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/Seakale">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Dashboard"
+                android:textColor="@color/white"
+                android:textSize="23dp"
+                android:textStyle="bold"></TextView>
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:visibility="visible">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                app:cardBackgroundColor="@color/Seakale"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:backgroundTint="@color/white"
+                        android:text="All Organizations"
+                        android:textAlignment="center"
+                        android:textColor="@color/Teal"
+                        android:textSize="25sp"
+                        android:textStyle="bold"
+                        tools:ignore="TextSizeCheck"
+                        tools:targetApi="lollipop" />
+
+                    <FrameLayout
+                        android:id="@+id/layout_step_wrapper"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/bg_stroke"
+                        android:paddingLeft="8dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="8dp"
+                        android:paddingBottom="10dp">
+
+                        <androidx.viewpager2.widget.ViewPager2
+                            android:id="@+id/view_pager_parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                        <com.google.android.material.tabs.TabLayout
+                            android:id="@+id/tab_layout_superadmin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:background="@color/Seakale"
+                            app:tabBackground="@drawable/tab_pager_selector"
+                            app:tabGravity="center"
+                            app:tabIndicatorHeight="0dp"
+                            app:tabPaddingEnd="10dp"
+                            app:tabPaddingStart="10dp"
+                            tools:ignore="SpeakableTextPresentCheck" />
+                    </FrameLayout>
+
+
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+    </LinearLayout>
+
+</FrameLayout>

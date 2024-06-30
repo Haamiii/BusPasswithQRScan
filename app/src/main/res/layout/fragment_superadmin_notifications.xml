@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/Teal"
+    android:id="@+id/frvtstopContainer"
+    tools:context=".SuperAdmin.Fragment_superadmin_notifications">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/Seakale">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Notification"
+                android:textSize="23dp"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/white"
+                android:textStyle="bold">
+            </TextView>
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.cardview.widget.CardView android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cvNotificationWrapper"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="20dp"
+            xmlns:android="http://schemas.android.com/apk/res/android">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/card_border_4history">
+
+                <TextView
+                    android:id="@+id/tvdateparent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="21/06/2024, 5:12AM"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="3dp"
+                    android:textColor="@color/white"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivNotificationIcon"
+                        android:layout_width="64dp"
+                        android:layout_height="69dp"
+                        android:src="@drawable/hh"
+                        android:layout_marginLeft="5dp"
+                        android:contentDescription="TODO" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/tvNotificationTitleparent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="User"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:textSize="17dp"
+                            android:layout_marginTop="15dp"/>
+
+                        <TextView
+                            android:id="@+id/tvNotificationMsgparent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="New User Added!"
+                            android:textColor="@color/white"
+                            android:textSize="15dp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+
+
+
+</FrameLayout>

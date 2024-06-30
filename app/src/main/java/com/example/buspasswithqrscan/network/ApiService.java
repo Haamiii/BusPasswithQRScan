@@ -2,7 +2,10 @@ package com.example.buspasswithqrscan.network;
 
 import com.example.buspasswithqrscan.Admin.Model.ApiStops;
 import com.example.buspasswithqrscan.Admin.Model.BusLocations;
+import com.example.buspasswithqrscan.Admin.Model.HistoryModelAdmin;
 import com.example.buspasswithqrscan.Admin.Model.Route;
+import com.example.buspasswithqrscan.Admin.Model.RouteForSpinner;
+import com.example.buspasswithqrscan.Admin.Model.Routes;
 import com.example.buspasswithqrscan.Conductor.model.JourneyStopsChecker;
 import com.example.buspasswithqrscan.Conductor.model.RouteModel;
 import com.example.buspasswithqrscan.Parent.model.ChildrenLocation;
@@ -14,6 +17,8 @@ import com.example.buspasswithqrscan.Student.model.Favourite_stopModel;
 import com.example.buspasswithqrscan.Student.model.HistoryModel;
 import com.example.buspasswithqrscan.Student.model.StopModel;
 import com.example.buspasswithqrscan.Student.model.Student;
+import com.example.buspasswithqrscan.SuperAdmin.Model.Organization;
+import com.example.buspasswithqrscan.SuperAdmin.Model.SuperAdminDashboardData;
 
 import java.util.List;
 import java.util.Map;
@@ -65,30 +70,36 @@ public interface ApiService {
 
     @GET("Student")
     Call<ApiResponse<Student>> getStudentDetails(@Query("id") int studentId);
+
     @GET("Student/GetFavStops")
     Call<List<Favourite_stopModel>> getFavStops(@Query("id") int studentId);
 
     @GET("Users/GetUserNotification")
-    Call<ResponseBody> GetUserNotification(@Query("id")int userId);
+    Call<ResponseBody> GetUserNotification(@Query("id") int userId);
+
     @GET("Users/GetUserNotification")
     Call<List<NotificationParentModel>> getUserNotifications(@Query("id") int userId);
 
 
     @POST("Student/AddFavStop")
     Call<String> AddFavStop(@Query("studentId") int studentId, @Query("stopId") int stopId);
+
     @DELETE("Student/RemoveFavStop")
-    Call<String>RemoveFavStop(@Query("studentId")int studentId, @Query("stopId")int stopId);
+    Call<String> RemoveFavStop(@Query("studentId") int studentId, @Query("stopId") int stopId);
+
     @GET("Users/GetUserHistory")
     Call<List<HistoryModel>> getUserHistory(@Query("id") int userId, @Query("fDate") String fromDate, @Query("tDate") String toDate);
 
     @PUT("Users/ChangePassword")
     Call<ResponseBody> changePassword(@Body RequestBody requestBody);
+
     @PUT("Users/ChangePassword")
     Call<ResponseBody> changePasswordParent(@Body RequestBody requestBody);
 
     @Headers("Content-Type: application/json")
     @GET("Stops/GetAllRoutes")
     Call<List<List<StopModel>>> getAllRoutes(@Query("OrganizationId") int organizationId);
+
     @Headers("Content-Type: application/json")
     @GET("Stops/GetAllRoutes")
     Call<List<List<ApiStops>>> getAllRoute(@Query("OrganizationId") int organizationId);
@@ -105,6 +116,7 @@ public interface ApiService {
 
     @GET("Parent/GetChildren")
     Call<List<Childsparent_Model>> getChildrenByParentId(@Query("Id") int parentId);
+
     @GET("Parent/GetChildLocation")
     Call<List<ChildrenLocation>> getChildLocation(@Query("id") int parentId);
 
@@ -113,16 +125,22 @@ public interface ApiService {
 
     @POST("Conductor/StartJourney")
     Call<ResponseBody> startJourney(@Query("busId") int busId, @Query("routeId") int routeId);
+
     @POST("Conductor/UpdateBusLocation")
     Call<ResponseBody> updateBusLocation(@Body com.example.buspasswithqrscan.Conductor.model.BusLocation busLocation);
+
     @GET("Conductor/ScanQrCode")
     Call<ResponseBody> scanQrCode(@Query("passId") int passId, @Query("busId") int busId);
+
     @POST("Conductor/ReachedAtStop")
     Call<ResponseBody> ReachedAtStop(@Query("busId") int busId, @Query("routeId") int routeId, @Query("stopId") int stopId);
+
     @GET("Conductor/GetBookedSeats")
     Call<Integer> getBookedSeats(@Query("conductorId") int conductorId);
+
     @GET("Conductor/GetNextStop")
     Call<com.example.buspasswithqrscan.Conductor.model.StopModel> getNextStop(@Query("conductorId") int conductorId);
+
     @GET("Conductor/GetRemainingStops")
     Call<JourneyStopsChecker> getRemainingStops(@Query("conductorId") int conductorId);
 
@@ -137,4 +155,18 @@ public interface ApiService {
 
     @GET("Bus/GetBusesLocations")
     Call<List<BusLocations>> getBusesLocation(@Query("OrganizationId") int organizationId);
+
+    @GET("SuperAdmin/GetAllOrganizationDetails")
+    Call<SuperAdminDashboardData> getAllOrganizationDetails();
+
+    @GET("SuperAdmin/GetAllOrganizations")
+    Call<List<Organization>> getAllOrganization();
+
+    @GET("Stops/GetAvailableRoutes")
+    Call<List<Routes>> getRoutes(@Query("OrganizationId") int organizationId);
+    @GET("Stops/GetAllRoutesTitle")
+    Call<List<RouteForSpinner>> getAllRoutesTitle(@Query("OrganizationId") int organizationId);
+
+    @GET("Admin/GetRouteRaking")
+    Call<List<HistoryModelAdmin>>getRouteRanking(@Query("OrganizationId") int organizationId);
 }

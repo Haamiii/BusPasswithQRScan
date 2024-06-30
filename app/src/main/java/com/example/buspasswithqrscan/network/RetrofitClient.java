@@ -13,11 +13,8 @@ public class RetrofitClient {
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(logging).build();
         if (retrofit == null) {
-            retrofit = new Retrofit.Builder().baseUrl("http://192.168.0.121/WebApi/api/").client(client).addConverterFactory(GsonConverterFactory.create()).build();
+            retrofit = new Retrofit.Builder().baseUrl("http://192.168.149.148/WebApi/api/").client(client).addConverterFactory(GsonConverterFactory.create()).build();
         }
         return retrofit;
     }
 }
-//192.168.70.148 Mobile IP
-//192.168.0.121 Home IP
-//192.168.10.8 Mardan IP

@@ -1,46 +1,45 @@
 package com.example.buspasswithqrscan.Admin;
 
 import android.annotation.SuppressLint;
-import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.Spinner;
-
 import com.example.buspasswithqrscan.Admin.Model.HistoryModelAdmin;
 import com.example.buspasswithqrscan.R;
+import com.example.buspasswithqrscan.network.ApiService;
+import com.example.buspasswithqrscan.network.RetrofitClient;
+import com.example.buspasswithqrscan.network.SharedPreferenceManager;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class History_Admin extends Fragment {
     RecyclerView recyclerView;
-    EditText fromDatePicker;
-    EditText toDatePicker;
-    int year;
-    int month;
-    int day;
-    Spinner spinner;
-    String[] category={"Bus Arrival","Bus Departure"};
+    private HistoryAdapter_Admin adapterAdmin;
+
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_history__admin, container, false);
+        View view = inflater.inflate(R.layout.fragment_history__admin, container, false);
         recyclerView = view.findViewById(R.id.rcv_historyadmin);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new HistoryAdapter_Admin(setDummyData(),getContext()));
+        adapterAdmin = new HistoryAdapter_Admin();
+        recyclerView.setAdapter(adapterAdmin);
+        //recyclerView.setAdapter(new HistoryAdapter_Admin(setDummyData(),getContext()));
 
         ImageButton backbutton;
         backbutton = view.findViewById(R.id.icbackButnAdmin);
@@ -52,52 +51,36 @@ public class History_Admin extends Fragment {
                 transaction.replace(R.id.frame_layoutAdmin, fragment).commit();
             }
         });
-        fromDatePicker=view.findViewById(R.id.fromdatepicker);
-        toDatePicker = view.findViewById(R.id.todatepicker);
 
-        fromDatePicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePickerDialog(fromDatePicker);
-            }
-        });
-        toDatePicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePickerDialog(toDatePicker);
-            }
-        });
-        spinner=view.findViewById(R.id.spcategoryAdmin);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(requireContext(),
-                android.R.layout.simple_spinner_item,category);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(arrayAdapter);
+        fetchgetrouteranking();
 
         return view;
     }
 
-    private void showDatePickerDialog(final EditText datePickerEditText) {
-        final Calendar calendar = Calendar.getInstance();
-        year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH);
-        day = calendar.get(Calendar.DAY_OF_MONTH);
+    private void fetchgetrouteranking() {
+        int OrganizationId = SharedPreferenceManager.getInstance().readInt("OrganizationId", 1);
+        ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
+        Call<List<HistoryModelAdmin>> call = apiService.getRouteRanking(OrganizationId);
+        Log.d("TestDATA", String.valueOf(OrganizationId));
+        call.enqueue(new Callback<List<HistoryModelAdmin>>() {
+            @Override
+            public void onResponse(Call<List<HistoryModelAdmin>> call, Response<List<HistoryModelAdmin>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<HistoryModelAdmin> travels = response.body();
+                    if (travels.isEmpty()) {
+                        Toast.makeText(getContext(), "There is no Data.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        adapterAdmin.setData(travels);
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Failed to fetch user history", Toast.LENGTH_SHORT).show();
+                }
+            }
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
-                (view, year, monthOfYear, dayOfMonth) -> {
-                    // Set the selected date to EditText
-                    datePickerEditText.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                }, year, month, day);
-        datePickerDialog.show();
-
-    }
-
-    private List<HistoryModelAdmin> setDummyData() {
-        List<HistoryModelAdmin> historyModelAdminList= new ArrayList<>();
-        for (int i = 0; i < 10; i++){
-            HistoryModelAdmin historyModelAdmin=new HistoryModelAdmin("Bus Arrival","6th Road","8:00AM","4/march/2024", "1","30");
-            historyModelAdminList.add(historyModelAdmin);
-        }
-
-        return historyModelAdminList;
+            @Override
+            public void onFailure(Call<List<HistoryModelAdmin>> call, Throwable t) {
+                Toast.makeText(getContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

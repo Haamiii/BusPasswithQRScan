@@ -1,6 +1,5 @@
 package com.example.buspasswithqrscan.Admin;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,18 +8,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.buspasswithqrscan.Admin.Model.HistoryModelAdmin;
 import com.example.buspasswithqrscan.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryAdapter_Admin extends RecyclerView.Adapter<HistoryAdapter_Admin.ViewHolder> {
     List<HistoryModelAdmin> historyModelAdminList;
-    Context context;
 
-    public HistoryAdapter_Admin(List<HistoryModelAdmin> historyModelAdminList, Context context) {
+    public HistoryAdapter_Admin(){
+        this.historyModelAdminList=new ArrayList<>();
+    }
+
+    public HistoryAdapter_Admin(List<HistoryModelAdmin> historyModelAdminList) {
         this.historyModelAdminList = historyModelAdminList;
-        this.context = context;
     }
 
     @NonNull
@@ -33,13 +36,10 @@ public class HistoryAdapter_Admin extends RecyclerView.Adapter<HistoryAdapter_Ad
     @Override
     public void onBindViewHolder(@NonNull HistoryAdapter_Admin.ViewHolder holder, int position) {
         HistoryModelAdmin model= historyModelAdminList.get(position);
-        holder.tvstudentscan.setText(model.getStudentscan());
-        holder.tvroute.setText(model.getRoute());
-        holder.tvdate.setText(model.getDate());
-        holder.tvtime.setText(model.getTime());
-        holder.tvtitle.setText(model.getTitle());
-        holder.tvStopName.setText(model.getStopname());
-
+        holder.tvrouteno.setText(String.valueOf(model.getRouteId()));
+        holder.tvbusno.setText(String.valueOf(model.getBusId()));
+        holder.tvtraveltype.setText(model.getTravelType());
+        holder.tvpassengers.setText(String.valueOf(model.getMaxPassengers()));
     }
 
     @Override
@@ -47,19 +47,23 @@ public class HistoryAdapter_Admin extends RecyclerView.Adapter<HistoryAdapter_Ad
     {
         return historyModelAdminList.size();
     }
+    public void setData(List<HistoryModelAdmin> historyList) {
+        this.historyModelAdminList.clear();
+        this.historyModelAdminList.addAll(historyList);
+        notifyDataSetChanged();
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
-        TextView tvtitle, tvStopName, tvtime, tvdate, tvroute, tvstudentscan;
+        TextView tvrouteno, tvbusno, tvtraveltype, tvpassengers;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             cardView=itemView.findViewById(R.id.cvhistory_pwrapperadmin);
-            tvtitle=itemView.findViewById(R.id.tvtitleadmin);
-            tvStopName=itemView.findViewById(R.id.tvstopNameAdmin);
-            tvtime=itemView.findViewById(R.id.tvtimeadmin);
-            tvdate=itemView.findViewById(R.id.tvdateAdmin);
-            tvroute=itemView.findViewById(R.id.tvrouteAdmin);
-            tvstudentscan=itemView.findViewById(R.id.tvstudentscanAdmin);
+
+            tvrouteno=itemView.findViewById(R.id.tvrouteno);
+            tvbusno=itemView.findViewById(R.id.tvBusNo);
+            tvtraveltype=itemView.findViewById(R.id.tvtravelType);
+            tvpassengers=itemView.findViewById(R.id.tvpassengers);
         }
     }
 }

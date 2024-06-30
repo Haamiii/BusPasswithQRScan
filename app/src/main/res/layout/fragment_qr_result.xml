@@ -42,7 +42,7 @@
 
         <!-- Existing views for pass data -->
         <ImageView
-            android:id="@+id/imageButton"
+            android:id="@+id/studentImageView"
             android:layout_width="94dp"
             android:layout_height="85dp"
             android:layout_gravity="center_horizontal"

@@ -3,67 +3,48 @@ package com.example.buspasswithqrscan.Admin.Model;
 import java.io.Serializable;
 
 public class HistoryModelAdmin implements Serializable {
-    String title;
-    String stopname;
-    String time;
-    String date;
-    String route;
-    String studentscan;
 
-    public String getTitle() {
-        return title;
+    int RouteId;
+    int BusId;
+    String TravelType;
+    int MaxPassengers;
+
+    public int getRouteId() {
+        return RouteId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setRouteId(int routeId) {
+        RouteId = routeId;
     }
 
-    public String getStopname() {
-        return stopname;
+    public int getBusId() {
+        return BusId;
     }
 
-    public void setStopname(String stopname) {
-        this.stopname = stopname;
+    public void setBusId(int busId) {
+        BusId = busId;
     }
 
-    public String getTime() {
-        return time;
+    public String getTravelType() {
+        return TravelType;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setTravelType(String travelType) {
+        TravelType = travelType;
     }
 
-    public String getDate() {
-        return date;
+    public int getMaxPassengers() {
+        return MaxPassengers;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setMaxPassengers(int maxPassengers) {
+        MaxPassengers = maxPassengers;
     }
 
-    public String getRoute() {
-        return route;
-    }
-
-    public void setRoute(String route) {
-        this.route = route;
-    }
-
-    public String getStudentscan() {
-        return studentscan;
-    }
-
-    public void setStudentscan(String studentscan) {
-        this.studentscan = studentscan;
-    }
-
-    public HistoryModelAdmin(String title, String stopname, String time, String date, String route, String studentscan) {
-        this.title = title;
-        this.stopname = stopname;
-        this.time = time;
-        this.date = date;
-        this.route = route;
-        this.studentscan = studentscan;
+    public HistoryModelAdmin(int routeId, int busId, String travelType, int maxPassengers) {
+        RouteId = routeId;
+        BusId = busId;
+        TravelType = travelType;
+        MaxPassengers = maxPassengers;
     }
 }

@@ -73,4 +73,8 @@ public class ApiStops {
     public void setRoute(int route) {
         Route = route;
     }
+    @Override
+    public String toString() {
+        return Name; // Return the route title for display in the Spinner
+    }
 }

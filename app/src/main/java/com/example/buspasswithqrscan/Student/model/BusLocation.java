@@ -1,9 +1,26 @@
 package com.example.buspasswithqrscan.Student.model;
 
-import com.example.buspasswithqrscan.Student.model.BusLocationCoordinates;
-
 public class BusLocation {
     private int BusId;
+    private int RouteId;
+    private String RouteTitle;
+
+    public int getRouteId() {
+        return RouteId;
+    }
+
+    public void setRouteId(int routeId) {
+        RouteId = routeId;
+    }
+
+    public String getRouteTitle() {
+        return RouteTitle;
+    }
+
+    public void setRouteTitle(String routeTitle) {
+        RouteTitle = routeTitle;
+    }
+
     private BusLocationCoordinates Cords;
 
     public int getBusId() {

@@ -1,15 +1,14 @@
 package com.example.buspasswithqrscan.Admin;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager2.widget.ViewPager2;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.buspasswithqrscan.Admin.Model.BusModel;
 import com.example.buspasswithqrscan.R;
@@ -50,8 +49,8 @@ public class HomeAdminFragment extends Fragment {
 
     private List<BusModel> setDummydata() {
         List<BusModel> busModelList=new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            BusModel model=new BusModel(i+"0",i+5,20-i);
+        for (int i = 0; i < 2; i++) {
+            BusModel model=new BusModel(i+"1",i+5,20-i);
             busModelList.add(model);
         }
 

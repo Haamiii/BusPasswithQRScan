@@ -24,10 +24,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.buspasswithqrscan.Admin.Model.ApiStops;
-import com.example.buspasswithqrscan.Admin.Model.BusLocations;
 import com.example.buspasswithqrscan.Admin.Model.Route;
-import com.example.buspasswithqrscan.Parent.model.ChildrenLocation;
 import com.example.buspasswithqrscan.R;
+import com.example.buspasswithqrscan.Student.CustomInfoWindowAdapter;
+import com.example.buspasswithqrscan.Student.model.BusLocation;
 import com.example.buspasswithqrscan.network.ApiService;
 import com.example.buspasswithqrscan.network.RetrofitClient;
 import com.example.buspasswithqrscan.network.SharedPreferenceManager;
@@ -36,6 +36,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -54,8 +55,11 @@ public class MapAdminFragment extends Fragment implements OnMapReadyCallback, Go
     private static final String TAG = "MapAdminFragment";
 
     private GoogleMap mMap;
+    private ApiService apiService;
     private SupportMapFragment mapFragment;
+    private static final int ORGANIZATION_ID = SharedPreferenceManager.getInstance().readInt("OrganizationId",1);
     private List<LatLng> routeLocations = new ArrayList<>();
+    private CustomInfoWindowAdapter infoWindowAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,8 +73,9 @@ public class MapAdminFragment extends Fragment implements OnMapReadyCallback, Go
             FragmentTransaction ft = fm.beginTransaction();
             ft.replace(R.id.mapADMIN, mapFragment).commit();
         }
-
+        apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
         mapFragment.getMapAsync(this);
+        infoWindowAdapter = new CustomInfoWindowAdapter(requireContext());
         return view;
     }
 
@@ -90,13 +95,14 @@ public class MapAdminFragment extends Fragment implements OnMapReadyCallback, Go
             ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
         }
 
+
         // Fetch routes and stops once the map is ready
         fetchStops();
         // Fetch routes and stops once the map is ready
         fetchRoutesAndStops();
         // Fetch and display bus locations
         int organizationId = SharedPreferenceManager.getInstance().readInt("OrganizationId", 0);
-        fetchBusesLocations(organizationId);
+        fetchBusesLocations();
     }
 
     private void fetchStops() {
@@ -192,7 +198,9 @@ public class MapAdminFragment extends Fragment implements OnMapReadyCallback, Go
             List<LatLng> latLngs = new ArrayList<>();
             for (ApiStops stop : route) {
                 LatLng latLng = new LatLng(stop.getLatitude(), stop.getLongitude());
-                mMap.addMarker(new MarkerOptions().position(latLng).title(stop.getName()));
+                mMap.addMarker(new MarkerOptions().position(latLng).title(stop.getName())
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.busstop)));
+
                 latLngs.add(latLng);
             }
 
@@ -395,57 +403,33 @@ public class MapAdminFragment extends Fragment implements OnMapReadyCallback, Go
             }
         });
     }
-    private void fetchBusesLocations(int organizationId) {
-        ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
-        Call<List<BusLocations>> call = apiService.getBusesLocation(organizationId);
-        call.enqueue(new Callback<List<BusLocations>>() {
+    private void fetchBusesLocations() {
+        Call<List<BusLocation>> call = apiService.getBusesLocations(ORGANIZATION_ID);
+        call.enqueue(new Callback<List<BusLocation>>() {
             @Override
-            public void onResponse(Call<List<BusLocations>> call, Response<List<BusLocations>> response) {
-                if (response.isSuccessful()) {
-                    List<BusLocations> busLocations = response.body();
-                    if (busLocations != null) {
-                        displayBusLocations(busLocations);
-                    } else {
-                        Log.d(TAG, "Bus locations response is null");
-                    }
+            public void onResponse(Call<List<BusLocation>> call, Response<List<BusLocation>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Log.d(TAG, "API Response: " + response.body().toString());
+                    displayBusesOnMap(response.body());
                 } else {
-                    Log.d(TAG, "Failed to fetch bus locations: " + response.message());
-                    Toast.makeText(getContext(), "Failed to fetch bus locations", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "Failed to fetch bus locations: " + response.message());
+                    Toast.makeText(requireContext(), "Failed to fetch bus locations", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<List<BusLocations>> call, Throwable t) {
-                Log.d(TAG, "API call failed: " + t.getMessage());
-                Toast.makeText(getContext(), "API call failed", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<List<BusLocation>> call, Throwable t) {
+                Log.e(TAG, "Error: " + t.getMessage());
+                Toast.makeText(requireContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void displayBusLocations(List<BusLocations> busLocations) {
-        if (mMap == null) {
-            Log.d(TAG, "Map is not ready");
-            return;
-        }
-
-        for (BusLocations busLocation : busLocations) {
-            // Extract information from BusLocation object
-            int busId = busLocation.getBusId();
-            int routeId = busLocation.getRouteId();
-            String routeTitle = busLocation.getRouteTitle();
-            ChildrenLocation.Location location = busLocation.getCords();
-            double latitude = location.getLatitude();
-            double longitude = location.getLongitude();
-
-            // Create LatLng object for bus location
-            LatLng latLng = new LatLng(latitude, longitude);
-
-            // Add marker for bus location
-            mMap.addMarker(new MarkerOptions()
-                    .position(latLng)
-                    .title("Bus ID: " + busId)
-                    .snippet("Route ID: " + routeId + "\nRoute Title: " + routeTitle)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.busmapmarker)));
+    private void displayBusesOnMap(List<BusLocation> busLocations) {
+        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.busmapmarker);
+        for (BusLocation busLocation : busLocations) {
+            LatLng busLatLng = new LatLng(busLocation.getCords().getLatitude(), busLocation.getCords().getLongitude());
+            mMap.addMarker(new MarkerOptions().position(busLatLng).icon(icon).title("Bus ID: " + busLocation.getBusId()+ " " +"Stop Name:"+busLocation.getRouteTitle()+ " " +"Route ID"+busLocation.getRouteId()));
         }
     }
 

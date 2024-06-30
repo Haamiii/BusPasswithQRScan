@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <Button
+        android:id="@+id/btnFindNewRoute"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Find New Route"
+        android:layout_marginBottom="8dp"
+        android:textStyle="bold"
+        android:background="@color/Teal" />
+
+    <Button
+        android:id="@+id/btnSharedRoutesRecord"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Shared Routes Record"
+        android:textStyle="bold"
+        android:background="@color/Teal" />
+
+</LinearLayout>

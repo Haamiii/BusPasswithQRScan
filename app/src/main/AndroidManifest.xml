@@ -23,6 +23,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".SuperAdmin.activity_superadmin_dashboard"
+            android:exported="false" />
+        <activity
             android:name=".Admin.Admin_dashboard"
             android:exported="false" />
         <activity

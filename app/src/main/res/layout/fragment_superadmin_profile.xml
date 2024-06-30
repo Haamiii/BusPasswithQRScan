@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/Teal"
+    android:orientation="horizontal"
+    tools:context=".SuperAdmin.Fragment_superadmin_profile">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/Seakale">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profile"
+                android:textSize="23dp"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/white"
+                android:textStyle="bold">
+            </TextView>
+
+        </androidx.appcompat.widget.Toolbar>
+        <androidx.cardview.widget.CardView
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:layout_marginLeft="15dp"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="10dp"
+            app:cardBackgroundColor="@color/Seakale"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true">
+
+
+            <ImageView
+                android:id="@+id/imageButton"
+                android:layout_width="94dp"
+                android:layout_height="85dp"
+                android:src="@drawable/rofile_pic"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"/>
+
+            <TextView
+                android:id="@+id/nameparent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:text="Super Admin"
+                android:layout_marginTop="110dp"
+                android:layout_gravity="center_horizontal"/>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"/>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="380dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="430dp"
+            android:backgroundTint="@color/white"
+            android:layout_centerHorizontal="true"
+            android:text="CHANGE PASSWORD"
+            android:textColor="@color/Teal"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:id="@+id/changepssbtn"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="380dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="490dp"
+            android:backgroundTint="@color/white"
+            android:text="LOG OUT"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/Teal"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:id="@+id/logout"/>
+    </RelativeLayout>
+
+</LinearLayout>

@@ -4,105 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cvhistory_pwrapperadmin"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="110dp"
     android:layout_marginStart="16dp"
     android:layout_marginTop="8dp"
     android:layout_marginEnd="16dp"
     android:layout_marginBottom="1dp"
     app:cardCornerRadius="20dp">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/card_border_4history">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvtitleadmin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Bus Arrival"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="17dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="10dp"/>
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Stop Name:"
-                    android:textColor="@color/white"
-                    android:textSize="15dp"
-                    tools:ignore="TextSizeCheck"
-                    android:layout_marginLeft="10dp"/>
 
                 <TextView
-                    android:id="@+id/tvstopNameAdmin"
+                    android:id="@+id/tvtitleadmin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="6th Road"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Route No:"
                     android:textColor="@color/white"
-                    android:textSize="15dp"
-                    tools:ignore="TextSizeCheck"
-                    android:layout_marginLeft="10dp"/>
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
+                <TextView
+                    android:id="@+id/tvrouteno"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:text="1"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Time:"
-                    android:textColor="@color/white"
-                    android:textSize="15dp"
-                    tools:ignore="TextSizeCheck"
-                    android:layout_marginLeft="10dp"/>
-
-                <TextView
-                    android:id="@+id/tvtimeadmin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="3634"
-                    android:textColor="@color/white"
-                    android:textSize="15dp"
-                    tools:ignore="TextSizeCheck"
-                    android:layout_marginLeft="10dp"/>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Date:"
-                    android:textColor="@color/white"
-                    android:textSize="15dp"
-                    tools:ignore="TextSizeCheck"
-                    android:layout_marginLeft="10dp"/>
-
-                <TextView
-                    android:id="@+id/tvdateAdmin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Chandni Chowk"
-                    android:textColor="@color/white"
-                    android:textSize="15dp"
-                    tools:ignore="TextSizeCheck"
-                    android:layout_marginLeft="10dp"/>
-
-            </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -112,22 +58,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="Route #"
+                    android:text="Bus No:"
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     tools:ignore="TextSizeCheck" />
 
                 <TextView
-                    android:id="@+id/tvrouteAdmin"
+                    android:id="@+id/tvBusNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="1"
+                    android:textStyle="bold"
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     tools:ignore="TextSizeCheck" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -137,20 +85,48 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="Student Scan:"
+                    android:text="Travel Type:"
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     tools:ignore="TextSizeCheck" />
 
                 <TextView
-                    android:id="@+id/tvstudentscanAdmin"
+                    android:id="@+id/tvtravelType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10"
+                    android:layout_marginLeft="10dp"
+                    android:text="PickUp"
+                    android:textStyle="bold"
                     android:textColor="@color/white"
                     android:textSize="15dp"
-                    tools:ignore="TextSizeCheck"
-                    android:layout_marginLeft="10dp"/>
+                    tools:ignore="TextSizeCheck" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Max Passengers Entered:"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    tools:ignore="TextSizeCheck" />
+
+                <TextView
+                    android:id="@+id/tvpassengers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="10"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    tools:ignore="TextSizeCheck" />
 
             </LinearLayout>
         </LinearLayout>
